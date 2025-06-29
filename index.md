@@ -1,5 +1,4 @@
 <!-- # Hello, I am Frosty_Jackal! -->
-<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
@@ -13,10 +12,9 @@
   <h1 style="margin: 0;">👋这里是侯睿（Frosty-Jackal）的主页</h1>
     </div>
         <div class="contact-links">
-            <a href="mailto:hou_rui@stu.scu.edu.cn" class="contact-link">📧 <b>联系我</a>
+            <a href="mailto:hou_rui@stu.scu.edu.cn" class="contact-link">📧 <b>联系我
             <a href="https://github.com/Frosty-Jackal" class="contact-link">🤝 GitHub</a></b>
-        </div>
-    </div>
+    
 
     <div class="container">
         <section class="section">
@@ -68,11 +66,9 @@
             <h2 class="section-title">🎯 自我评价</h2>
             <ul>
                 <li>🔬 科研态度：保持技术学习，坚持阅读顶会论文</li>
-                <li>🔥 代码能力：深耕经典算法领域累计2年</li>
+                <li>🔥 代码能力：已刷洛谷算法题200+</li>
                 <li>🌟 应用经验：从前端三件套到后端架构设计与数据库交互，具备完整项目开发经验</li>
                 <li>💚 有微信公众号：一个人工智能本科生的日常，内容与我感兴趣的领域相关，欢迎阅读我的文章！</li>
             </ul>
         </section>
     </div>
-</body>
-</html>
