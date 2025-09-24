@@ -72,6 +72,6 @@
                 <li>💚 有微信公众号："一个人工智能专业本科生"，所发布文章内容与我感兴趣的领域相关，如深度学习，算法等，欢迎阅读我的文章！扫描二维码关注我的公众号！</li>
             </ul>
         </section>
-       <img src=official_account.jpg" alt="oa" width="100" height="130">
+       <img src=ofa.jpg" alt="oa" width="100" height="130">
     </div>
  
