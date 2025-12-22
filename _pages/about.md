@@ -19,7 +19,6 @@ redirect_from:
 - 第十五、十六届蓝桥杯C/C++程序设计大赛A组全国总决赛三等奖
 - 2023-2024学年本科生国家奖学金
 - 2025年团体程序设计天梯赛全国总决赛团队二等奖
-- 2025年中国国际大学生创新大赛四川大学校赛铜奖
 - 四川省人工智能学院首届天府智能班学员
 - Alibaba Cloud ACA Large Language Model Engineer Certification
 
