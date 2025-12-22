@@ -27,10 +27,10 @@ author:
   name             : "侯睿"
   pronouns         : # example: "she/her"  
   bio              : "一个人工智能专业本科生"
-  location         : "Earth"
-  employer         : "Red Brick University"
+  location         : "Chengdu, China"
+  employer         : "Sichuan University"
   uri              : https://frosty-jackal.github.io/ # URL
-  email            : "none@example.org" 
+  email            : "hou_rui@stu.scu.edu.cn" 
 
   # Academic websites
   academia         : # URL
@@ -51,7 +51,7 @@ author:
   bitbucket        : # Username - Update with your username on the site
   codepen          : # Username
   dribbble         : # Username
-  github           : "academicpages"
+  github           : "https://github.com/Frosty-Jackal"
   kaggle           : # Username  
   stackoverflow    : # User number or user number and name (i.e., use "1" or "1/jeff-atwood")    
 
