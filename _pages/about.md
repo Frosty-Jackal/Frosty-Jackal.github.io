@@ -1,6 +1,6 @@
 ---
 permalink: /
-title: "侯睿的个人网站主页"
+title: "侯睿的个人网站"
 author_profile: true
 redirect_from: 
   - /about/
