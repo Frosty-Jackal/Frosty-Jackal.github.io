@@ -1,6 +1,6 @@
 ---
 title: "水稻图像精准控制生成平台"
-excerpt: "基于Swin-ControlNet的精准引导控制水稻图像生成平台，是一个融合了Swin Transformer与ControlNet技术的深度学习图像生成系统，我是该软件第一著作权利所有人。该平台通过引入Swin Transformer模块构建双流空间变换器架构，利用水稻数据集（CVRP）进行训练，能够根据用户提供的控制提示（红色掩码区域）精准生成高质量的水稻图像。系统提供的Gradio Web界面支持多种参数配置，可广泛应用于农业图像生成、精准农业研究等领域。<br/><img src='/images/portfolio3.png'>"
+excerpt: "基于Swin-ControlNet的精准引导控制水稻图像生成平台，是一个融合了Swin Transformer与ControlNet技术的深度学习图像生成系统，我是该软件著作的第一权利所有人。该平台通过引入Swin Transformer模块构建双流空间变换器架构，利用水稻数据集（CVRP）进行训练，能够根据用户提供的控制提示（红色掩码区域）精准生成高质量的水稻图像。系统提供的Gradio Web界面支持多种参数配置，可广泛应用于农业图像生成、精准农业研究等领域。<br/><img src='/images/portfolio3.png'>"
 collection: portfolio
 ---
 项目采用先进的深度学习架构，在传统ControlNet基础上创新性地集成了Swin Transformer模块，形成双流空间变换器架构。核心模型基于Stable Diffusion 2.1构建，通过添加Swin Transformer Block增强空间特征提取能力，显著提升了图像生成的精细度和可控性。系统使用CVRP（水稻）数据集进行专项训练，能够精准理解水稻的形态特征和生长规律。
