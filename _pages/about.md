@@ -9,7 +9,7 @@ redirect_from:
 
 我是来自[四川大学](https://scu.edu.cn/)的[人工智能专业](https://www.csail.mit.edu/)本科生（大学三年级）。
 
-我感兴趣的计算机领域有：[深度学习](https://www.deeplearning.ai/), [扩散模型](https://stability.ai/), [经典算法](https://oi-wiki.org/)，[前后端应用开发（与数据库交互）](https://scrimba.com/t0fullstack)，并持续关注人工智能前沿技术，期待与志同道合的伙伴共同交流成长。
+我感兴趣的计算机领域有：[深度学习](https://www.deeplearning.ai/)，[扩散模型](https://stability.ai/)，[经典算法](https://oi-wiki.org/)，[前后端应用开发（与数据库交互）](https://scrimba.com/t0fullstack)，并持续关注人工智能前沿技术，期待与志同道合的伙伴共同交流成长。
 
 ## 🏆 教育经历及主要获奖情况
 
@@ -17,14 +17,13 @@ redirect_from:
 - 第十五、十六届蓝桥杯C/C++程序设计大赛A组全国总决赛三等奖
 - 2023-2024学年本科生国家奖学金
 - 2025年团体程序设计天梯赛全国总决赛团队二等奖
-- 四川省人工智能学院首届天府智能班学员
+- [四川省人工智能学院](https://baike.baidu.com/item/%E5%9B%9B%E5%B7%9D%E7%9C%81%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%AD%A6%E9%99%A2/64277040)首届学员
 - Alibaba Cloud ACA Large Language Model Engineer Certification
 
 ### 成都市树德中学 (2020.09 - 2023.06)
 - 2021年全国青少年信息学奥林匹克联赛三等奖
 - CCF CSP非专业级别软件能力认证提高组二等奖
-
-[我的CSDN账号（记录我学习信奥的过程）](https://blog.csdn.net/Frosty_Jackal)
+- [我的CSDN账号（记录我学习信奥的过程）](https://blog.csdn.net/Frosty_Jackal)
 
 ## 🎯 自我评价
 
@@ -33,9 +32,9 @@ redirect_from:
 - **应用经验**：[具备前后端开发、数据库操作等完整项目实践经验](https://frosty-jackal.github.io/portfolio/)
 - **技术分享**：运营微信公众号[一个人工智能专业本科生](../images/ofa.png)，分享人工智能与计算机科学技术相关技术内容
 
-[我的微信公众号]
-
 ## ⭐ 新闻
+- 2026.03 以第一作者投稿的CCF-B类会议论文被接受
+- 2026.01 第一次被邀请成为期刊论文审稿人
 - 2025.12 获得《水稻图像精准控制生成平台》软件著作权证书
 - 2025.11 四川大学综合三等奖学金，四川大学优秀学生干部
 - 2025.10 所负责一项大学生创新训练项目结题
@@ -48,5 +47,4 @@ redirect_from:
 - 2024.12 本科生国家奖学金
 - 2024.11 四川大学综合二等奖学金
 - 2024.10 四川大学优秀学生
-- 2024.06 第15届蓝桥杯C/C++程序设计大赛A组全国总决赛三等奖
-- 2024.05 第15届蓝桥杯C/C++程序设计大赛A组四川赛区省级一等奖
+
