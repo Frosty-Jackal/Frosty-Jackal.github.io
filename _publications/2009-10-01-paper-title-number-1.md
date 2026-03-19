@@ -2,13 +2,13 @@
 title: "AHFAControl: Adaptive Hierarchical Feature Aggregation for Controllable Diffusion Models"
 collection: publications
 category: manuscripts
-# permalink: /publication/2009-10-01-paper-title-number-1
+permalink: /publication/2009-10-01-paper-title-number-1
 excerpt: ''
 date: 2026-07
 venue: '2026 IEEE International Conference on Multimedia and Expo (ICME)'
-# slidesurl: ''
-# paperurl: ''
-# bibtexurl: ''
-# citation: ''
+slidesurl: ''
+paperurl: ''
+bibtexurl: ''
+citation: ''
 ---
 Addressed the static capacity allocation and limited feature interaction in controllable diffusion model condition encoders by applying evolutionary search to automatically assign optimal encoder capacity at each denoising timestep, and designing a hierarchical feature aggregation mechanism to fuse multi-level features before injection into the diffusion backbone. Achieved up to 19.9% FID improvement, 31.6% mIoU gain, and 10.4% compute reduction over SOTA methods including ControlNet-XS and FlexControl on COCO2017 and ADE20k.
