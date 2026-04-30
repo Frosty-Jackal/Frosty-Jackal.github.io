@@ -23,7 +23,7 @@ redirect_from:
 ### 成都市树德中学 (2020.09 - 2023.06)
 - 2021年全国青少年信息学奥林匹克联赛三等奖
 - CCF CSP非专业级别软件能力认证提高组二等奖
-- [创建有关信息学奥赛知识分享的CSDN博客](https://blog.csdn.net/Frosty_Jackal)
+- [创有1个关于信息学奥赛知识分享的CSDN博客](https://blog.csdn.net/Frosty_Jackal)
 
 ## 🎯 自我评价
 
