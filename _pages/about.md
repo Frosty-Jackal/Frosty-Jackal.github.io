@@ -28,8 +28,8 @@ redirect_from:
 ## 🎯 自我评价
 
 - **科研态度**：保持持续学习，坚持阅读顶会顶刊论文
-- **代码能力**：[已刷洛谷算法题200+](https://www.luogu.com.cn/user/502538/practice)
-- **工程应用**：[具备前后端、数据库交互开发等完整项目流程经验](https://frosty-jackal.github.io/portfolio/)
+- **代码能力**：已刷[洛谷算法题200+](https://www.luogu.com.cn/user/502538/practice)
+- **工程应用**：具备含前后端与数据库交互开发的[完整项目流程经验](https://frosty-jackal.github.io/portfolio/)
 - **博客贡献**：运营微信公众号[一个人工智能专业本科生](../images/ofa.png)，分享人工智能与计算机科学技术相关内容。
 
 ## ⭐ 新闻

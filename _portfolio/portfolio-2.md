@@ -9,4 +9,4 @@ collection: portfolio
 
 系统实现了社区论坛、行情交易、个人资产管理三大核心模块，支持管理员后台（用户管理、论坛审核、统计分析、封禁历史）。错误处理通过ExceptionHandlerMiddleware拦截未处理异常，生产环境隐藏详细错误信息并记录日志。性能优化包括：使用const构造函数避免不必要的重建，ListView.builder实现懒加载，请求缓存减少重复请求，WeakReference避免内存泄漏。部署架构采用Nginx反向代理配置HTTPS和CORS策略，PostgreSQL数据库配置远程访问和定期备份，Let's Encrypt SSL证书自动续期，防火墙只开放必要端口。
 
-项目演示[Slide](/pdfs/portfolio2-2.pdf)
+项目演示[Slide](/files/portfolio2-2.pdf)
