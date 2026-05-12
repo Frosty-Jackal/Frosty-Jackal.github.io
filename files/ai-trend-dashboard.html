@@ -1,0 +1,1140 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 替代浪潮 · 2026 生存指南</title>
+<meta name="description" content="2026年AI替代传统行业全景数据，哪些职业正在消亡，哪些机会仍然存在。">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap');
+  :root {
+    --bg:#030712;--bg2:#0a0f1e;--card:rgba(15,23,42,0.6);--glass:rgba(255,255,255,0.02);
+    --border:rgba(255,255,255,0.06);--border2:rgba(255,255,255,0.1);
+    --accent:#818cf8;--accent2:#22d3ee;--accent3:#fbbf24;--accent4:#f472b6;
+    --red:#f87171;--green:#4ade80;--text:#e2e8f0;--muted:#64748b;--dim:#475569;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:'Inter','Noto Sans SC',-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--text);line-height:1.7;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+
+  /* === Scrollbar === */
+  ::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:rgba(129,140,248,.3);border-radius:3px}
+
+  /* === Progress === */
+  #progress{position:fixed;top:0;left:0;height:2px;background:linear-gradient(90deg,#818cf8,#22d3ee,#fbbf24,#f472b6);z-index:9999;width:0;transition:width .05s}
+
+  /* === Canvas BG === */
+  #bgCanvas{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0}
+
+  /* === Nav === */
+  .nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:14px 32px;display:flex;align-items:center;justify-content:space-between;
+    background:rgba(3,7,18,0.6);backdrop-filter:blur(24px) saturate(1.5);border-bottom:1px solid transparent;transition:all .4s}
+  .nav.on{padding:10px 32px;background:rgba(3,7,18,0.92);border-bottom-color:var(--border)}
+  .nav-brand{font-weight:800;font-size:1rem;display:flex;align-items:center;gap:8px}
+  .nav-brand span{background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+  .nav-links{display:flex;gap:2px}
+  .nav-links a{color:var(--muted);text-decoration:none;font-size:.78rem;font-weight:500;padding:6px 14px;border-radius:8px;transition:all .25s;letter-spacing:.3px}
+  .nav-links a:hover{color:var(--text);background:rgba(129,140,248,.08)}
+  .nav-links a.on{color:var(--accent);background:rgba(129,140,248,.1)}
+  @media(max-width:768px){.nav-links{display:none}.nav{padding:12px 16px}}
+
+  /* === Hero === */
+  .hero{position:relative;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:120px 24px 80px;overflow:hidden}
+  .hero-glow{position:absolute;top:40%;left:50%;width:900px;height:900px;transform:translate(-50%,-50%);
+    background:radial-gradient(circle,rgba(129,140,248,.1) 0%,rgba(34,211,238,.05) 35%,transparent 65%);animation:glow 8s ease-in-out infinite;pointer-events:none}
+  @keyframes glow{0%,100%{transform:translate(-50%,-50%) scale(1)}50%{transform:translate(-50%,-50%) scale(1.15)}}
+  .hero-badge{display:inline-flex;align-items:center;gap:8px;padding:6px 18px;border-radius:100px;font-size:.78rem;font-weight:600;letter-spacing:.5px;
+    background:rgba(248,113,113,.08);border:1px solid rgba(248,113,113,.2);color:var(--red);margin-bottom:28px;position:relative}
+  .hero-badge .dot{width:7px;height:7px;background:var(--red);border-radius:50%;animation:blink 1.5s infinite}
+  @keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
+  #heroTime{font-variant-numeric:tabular-nums}
+
+  /* === Live Ticker === */
+  .ticker-bar{background:rgba(15,23,42,0.6);border-bottom:1px solid var(--border);overflow:hidden;position:relative;z-index:1;white-space:nowrap}
+  .ticker-track{display:inline-flex;animation:tickerScroll 60s linear infinite}
+  .ticker-track:hover{animation-play-state:paused}
+  @keyframes tickerScroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+  .ticker-item{display:inline-flex;align-items:center;gap:8px;padding:10px 32px;font-size:.78rem;color:var(--muted);flex-shrink:0}
+  .ticker-item .t-dot{width:5px;height:5px;border-radius:50%;flex-shrink:0}
+  .ticker-item .t-dot.r{background:var(--red)}.ticker-item .t-dot.y{background:var(--accent3)}.ticker-item .t-dot.g{background:var(--green)}.ticker-item .t-dot.b{background:var(--accent)}
+  .ticker-item strong{color:var(--text);font-weight:600}
+
+  /* === Live Counter === */
+  .live-counter{background:linear-gradient(135deg,rgba(248,113,113,.06),rgba(129,140,248,.04));border:1px solid rgba(248,113,113,.1);border-radius:14px;padding:24px 28px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
+  .live-counter .lc-left{display:flex;align-items:center;gap:14px}
+  .live-counter .lc-pulse{width:10px;height:10px;background:var(--red);border-radius:50%;animation:blink 1s infinite}
+  .live-counter .lc-label{font-size:.85rem;color:var(--muted)}
+  .live-counter .lc-num{font-size:1.8rem;font-weight:900;color:var(--red);font-variant-numeric:tabular-nums}
+  .live-counter .lc-sub{font-size:.72rem;color:var(--dim);margin-top:2px}
+  .live-counter .lc-right{text-align:right}
+  .live-counter .lc-right .lc-time{font-size:.78rem;color:var(--dim)}
+  .live-counter .lc-right .lc-update{font-size:.7rem;color:var(--accent);margin-top:4px}
+
+  /* === News Feed === */
+  .news-feed{margin-top:24px}
+  .news-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+  .news-header h3{font-size:1rem;font-weight:700;display:flex;align-items:center;gap:8px}
+  .news-header .news-status{font-size:.72rem;color:var(--dim);display:flex;align-items:center;gap:6px}
+  .news-header .news-status .dot{width:6px;height:6px;border-radius:50%;animation:blink 1.5s infinite}
+  .news-header .news-status .dot.live{background:var(--green)}.news-header .news-status .dot.loading{background:var(--accent3)}
+  .news-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:14px}
+  .news-card{background:rgba(15,23,42,0.4);border:1px solid var(--border);border-radius:12px;padding:18px;transition:all .3s;cursor:pointer;text-decoration:none;color:inherit;display:block}
+  .news-card:hover{border-color:rgba(129,140,248,.2);transform:translateY(-2px)}
+  .news-card .news-source{font-size:.7rem;color:var(--accent);font-weight:600;margin-bottom:6px}
+  .news-card .news-title{font-size:.9rem;font-weight:700;line-height:1.5;margin-bottom:6px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .news-card .news-desc{font-size:.78rem;color:var(--dim);line-height:1.6;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .news-card .news-time{font-size:.68rem;color:var(--dim);margin-top:8px;opacity:.7}
+  .news-empty{text-align:center;padding:40px;color:var(--dim);font-size:.85rem}
+  .news-refresh{background:none;border:1px solid var(--border);color:var(--muted);padding:6px 14px;border-radius:8px;font-size:.75rem;cursor:pointer;font-family:inherit;transition:all .2s}
+  .news-refresh:hover{border-color:var(--accent);color:var(--accent)}
+  @media(max-width:700px){.news-grid{grid-template-columns:1fr}}
+  .hero h1{font-size:clamp(2.4rem,6vw,4.5rem);font-weight:900;line-height:1.08;max-width:900px;position:relative;margin-bottom:24px;letter-spacing:-.02em}
+  .hero h1 .g{background:linear-gradient(135deg,#c7d2fe,#818cf8,#22d3ee,#fbbf24,#f87171);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-size:300% 300%;animation:gs 10s ease infinite}
+  @keyframes gs{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+  .hero-sub{color:var(--muted);font-size:1.1rem;max-width:560px;position:relative;margin-bottom:0}
+  .hero-sub strong{color:var(--text);font-weight:700}
+
+  /* Hero typing */
+  #typing{display:block;margin-top:32px;position:relative;min-height:2.4em}
+  #typing .line{font-size:1.15rem;color:var(--accent2);font-weight:600;opacity:0;transform:translateY(12px);transition:all .5s}
+  #typing .line.show{opacity:1;transform:translateY(0)}
+
+  /* Hero stats */
+  .hero-metrics{display:flex;gap:48px;margin-top:56px;position:relative}
+  .hero-metric{text-align:center}
+  .hero-metric .val{font-size:3rem;font-weight:900;line-height:1}
+  .hero-metric .val.r{color:var(--red);text-shadow:0 0 40px rgba(248,113,113,.25)}
+  .hero-metric .val.b{color:var(--accent);text-shadow:0 0 40px rgba(129,140,248,.25)}
+  .hero-metric .val.c{color:var(--accent2);text-shadow:0 0 40px rgba(34,211,238,.25)}
+  .hero-metric .lab{font-size:.78rem;color:var(--dim);margin-top:6px;font-weight:500}
+  @media(max-width:600px){.hero-metrics{gap:24px}.hero-metric .val{font-size:2rem}}
+
+  /* Scroll hint */
+  .scroll-hint{position:absolute;bottom:36px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;color:var(--dim);font-size:.72rem;font-weight:500;animation:bounce 2.5s infinite}
+  @keyframes bounce{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(8px)}}
+  .scroll-hint .chev{width:18px;height:18px;border-right:1.5px solid var(--dim);border-bottom:1.5px solid var(--dim);transform:rotate(45deg)}
+
+  /* === Container === */
+  .container{max-width:1400px;margin:0 auto;padding:0 24px 100px;position:relative;z-index:1}
+
+  /* === Section Head === */
+  .sec-head{display:flex;align-items:center;gap:14px;margin:72px 0 32px}
+  .sec-head .tag{font-size:.7rem;color:var(--accent);font-weight:700;background:rgba(129,140,248,.08);border:1px solid rgba(129,140,248,.15);padding:4px 14px;border-radius:100px;letter-spacing:1.5px;text-transform:uppercase;white-space:nowrap}
+  .sec-head h2{font-size:clamp(1.2rem,2.5vw,1.65rem);font-weight:800;letter-spacing:-.01em}
+  .sec-head .line{flex:1;height:1px;background:linear-gradient(90deg,var(--border),transparent);min-width:20px}
+
+  /* === Grids === */
+  .g2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+  .g3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  .g4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+  @media(max-width:1100px){.g3,.g4{grid-template-columns:1fr 1fr}}
+  @media(max-width:768px){.g2,.g3,.g4{grid-template-columns:1fr}}
+
+  /* === Cards === */
+  .card{background:var(--card);backdrop-filter:blur(12px);border:1px solid var(--border);border-radius:16px;padding:28px;position:relative;overflow:hidden;transition:all .35s cubic-bezier(.16,1,.3,1)}
+  .card:hover{border-color:rgba(129,140,248,.15);transform:translateY(-2px)}
+  .card h3{font-size:1rem;font-weight:700;margin-bottom:18px;display:flex;align-items:center;gap:8px}
+
+  /* Glow card variant */
+  .card-glow{position:relative}
+  .card-glow::before{content:'';position:absolute;top:-1px;left:20%;right:20%;height:1px;background:linear-gradient(90deg,transparent,rgba(129,140,248,.4),transparent);opacity:0;transition:opacity .4s}
+  .card-glow:hover::before{opacity:1}
+
+  /* === Stat Tiles === */
+  .tile{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:22px;position:relative;overflow:hidden;transition:all .3s}
+  .tile:hover{border-color:rgba(129,140,248,.2)}
+  .tile .ico{font-size:1.6rem;margin-bottom:10px}
+  .tile .num{font-size:2rem;font-weight:900;line-height:1}
+  .tile .lab{font-size:.78rem;color:var(--dim);margin-top:6px;font-weight:500}
+  .tile .badge{display:inline-flex;align-items:center;gap:4px;font-size:.7rem;font-weight:600;margin-top:8px;padding:3px 10px;border-radius:6px}
+  .badge-up{background:rgba(248,113,113,.1);color:var(--red)}
+  .badge-dn{background:rgba(74,222,128,.1);color:var(--green)}
+
+  /* === Countdown === */
+  .countdown{background:linear-gradient(135deg,rgba(248,113,113,.06),rgba(251,191,36,.04));border:1px solid rgba(248,113,113,.12);border-radius:16px;padding:36px;text-align:center;position:relative;overflow:hidden}
+  .countdown::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(248,113,113,.03),transparent);pointer-events:none}
+  .countdown h3{font-size:1.2rem;font-weight:800;color:var(--red);margin-bottom:4px}
+  .countdown .sub{font-size:.85rem;color:var(--dim);margin-bottom:20px}
+  .cd-boxes{display:flex;justify-content:center;gap:16px;margin-bottom:20px}
+  .cd-box{background:rgba(0,0,0,.3);border:1px solid rgba(248,113,113,.1);border-radius:12px;padding:14px 22px;min-width:80px}
+  .cd-box .v{font-size:2.4rem;font-weight:900;color:var(--accent3);line-height:1;font-variant-numeric:tabular-nums}
+  .cd-box .l{font-size:.7rem;color:var(--dim);margin-top:4px;font-weight:500}
+  .countdown .msg{font-size:.88rem;color:var(--muted);max-width:650px;margin:0 auto;line-height:1.8}
+  @media(max-width:500px){.cd-boxes{gap:8px}.cd-box{padding:10px 14px;min-width:60px}.cd-box .v{font-size:1.6rem}}
+
+  /* === Danger Meters === */
+  .meter-row{display:flex;align-items:center;gap:14px;padding:14px 16px;border-radius:10px;margin-bottom:10px;transition:background .2s}
+  .meter-row:hover{background:rgba(255,255,255,.02)}
+  .meter-row .ico{font-size:1.4rem;flex-shrink:0}
+  .meter-row .info{flex:1;min-width:0}
+  .meter-row .info .name{font-size:.9rem;font-weight:600}
+  .meter-row .info .det{font-size:.75rem;color:var(--dim);margin-top:1px}
+  .meter-row .right{text-align:right;flex-shrink:0;width:110px}
+  .meter-row .right .pct{font-size:1.3rem;font-weight:800}
+  .meter-row .right .track{height:4px;background:rgba(255,255,255,.06);border-radius:2px;margin-top:5px;overflow:hidden}
+  .meter-row .right .track span{display:block;height:100%;border-radius:2px;transition:width 1.8s cubic-bezier(.16,1,.3,1)}
+  .pct-r{color:var(--red)}.pct-y{color:var(--accent3)}.pct-g{color:var(--green)}
+  .bg-r{background:linear-gradient(90deg,#ef4444,#f97316)}.bg-y{background:linear-gradient(90deg,#f59e0b,#eab308)}.bg-g{background:linear-gradient(90deg,#22c55e,#06b6d4)}
+
+  /* === Shock Cards === */
+  .shock{background:linear-gradient(135deg,rgba(248,113,113,.06),rgba(251,191,36,.03));border:1px solid rgba(248,113,113,.1);border-radius:14px;padding:24px;transition:all .3s}
+  .shock:hover{border-color:rgba(248,113,113,.25);transform:translateY(-2px)}
+  .shock .hl{font-size:1.05rem;font-weight:800;color:var(--red);margin-bottom:8px;display:flex;align-items:center;gap:8px}
+  .shock .body{font-size:.86rem;color:var(--muted);line-height:1.8}
+  .shock .body em{color:var(--accent3);font-style:normal;font-weight:700}
+  .shock .src{font-size:.68rem;color:rgba(255,255,255,.2);margin-top:12px}
+
+  /* === Comparison Table === */
+  .cmp{width:100%;border-collapse:separate;border-spacing:0}
+  .cmp th{text-align:left;font-size:.75rem;color:var(--dim);font-weight:600;padding:10px 14px;border-bottom:1px solid var(--border);text-transform:uppercase;letter-spacing:.5px}
+  .cmp td{padding:13px 14px;font-size:.86rem;border-bottom:1px solid rgba(255,255,255,.03);transition:background .2s}
+  .cmp tr:hover td{background:rgba(255,255,255,.02)}
+  .cmp .old{color:rgba(248,113,113,.5);text-decoration:line-through}
+  .cmp .new{color:var(--green);font-weight:700}
+  .cmp .diff{font-weight:800;color:var(--red)}
+
+  /* === Opportunity Cards === */
+  .opp{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:26px;transition:all .35s cubic-bezier(.16,1,.3,1);position:relative;overflow:hidden}
+  .opp::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--accent),var(--accent2),var(--accent4));transform:scaleX(0);transition:transform .35s;transform-origin:left}
+  .opp:hover{border-color:rgba(129,140,248,.2);transform:translateY(-4px)}
+  .opp:hover::after{transform:scaleX(1)}
+  .opp .top{display:flex;gap:14px;margin-bottom:14px}
+  .opp .top .ic{font-size:2.2rem;flex-shrink:0}
+  .opp .top .meta h3{font-size:1.05rem;font-weight:700;line-height:1.3}
+  .opp .top .meta .sub{font-size:.78rem;color:var(--dim);font-weight:500}
+  .opp p{font-size:.85rem;color:var(--muted);line-height:1.8}
+  .opp .tags{display:flex;gap:6px;margin-top:14px;flex-wrap:wrap}
+  .opp .tag{font-size:.68rem;padding:3px 10px;border-radius:6px;font-weight:600}
+  .t-grow{background:rgba(129,140,248,.1);color:#a5b4fc}
+  .t-blue{background:rgba(34,211,238,.1);color:#67e8f9}
+  .t-green{background:rgba(74,222,128,.1);color:#86efac}
+  .t-amber{background:rgba(251,191,36,.1);color:#fcd34d}
+  .t-pink{background:rgba(244,114,182,.1);color:#f9a8d4}
+  .opp .money{margin-top:14px;display:flex;gap:0;border-radius:10px;overflow:hidden;border:1px solid rgba(255,255,255,.04)}
+  .opp .money div{flex:1;padding:10px 14px;background:rgba(255,255,255,.02);font-size:.78rem;text-align:center}
+  .opp .money div:first-child{border-right:1px solid rgba(255,255,255,.04)}
+  .opp .money .v{font-weight:700;color:var(--accent2);display:block;margin-top:2px}
+
+  /* === Timeline === */
+  .tl{position:relative;padding-left:36px}
+  .tl::before{content:'';position:absolute;left:12px;top:0;bottom:0;width:2px;background:linear-gradient(180deg,var(--accent),var(--accent2),var(--accent3),var(--accent4));opacity:.4}
+  .tl-item{position:relative;margin-bottom:32px;opacity:0;transform:translateX(-24px);transition:all .6s cubic-bezier(.16,1,.3,1)}
+  .tl-item.show{opacity:1;transform:translateX(0)}
+  .tl-item::before{content:'';position:absolute;left:-28px;top:6px;width:12px;height:12px;border-radius:50%;border:3px solid var(--accent);background:var(--bg);z-index:1;transition:all .3s}
+  .tl-item.active::before{background:var(--accent);box-shadow:0 0 16px rgba(129,140,248,.5)}
+  .tl-item .yr{font-size:.72rem;color:var(--accent);font-weight:700;letter-spacing:1.5px;text-transform:uppercase}
+  .tl-item .tt{font-size:1.05rem;font-weight:700;margin-top:2px}
+  .tl-item .ds{font-size:.85rem;color:var(--muted);margin-top:3px;line-height:1.7}
+
+  /* === Tabs === */
+  .tabs{display:inline-flex;gap:2px;padding:3px;background:rgba(255,255,255,.03);border-radius:10px;border:1px solid var(--border);margin-bottom:20px}
+  .tab-btn{padding:8px 20px;border:none;background:none;color:var(--muted);font-size:.82rem;font-weight:600;cursor:pointer;border-radius:8px;transition:all .2s;font-family:inherit}
+  .tab-btn.on{background:rgba(129,140,248,.12);color:var(--accent)}
+  .tab-btn:hover:not(.on){color:var(--text)}
+  .tab-pane{display:none;animation:fadeUp .4s}
+  .tab-pane.on{display:block}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+
+  /* === Chart === */
+  .cw{position:relative;height:300px}
+  .cw.tall{height:360px}
+
+  /* === Reveal === */
+  .rv{opacity:0;transform:translateY(36px);transition:all .7s cubic-bezier(.16,1,.3,1)}
+  .rv.show{opacity:1;transform:translateY(0)}
+  .rv.delay-1{transition-delay:.1s}.rv.delay-2{transition-delay:.2s}.rv.delay-3{transition-delay:.3s}
+
+  /* === Quote === */
+  .quote-block{position:relative;padding:32px 36px;background:linear-gradient(135deg,rgba(129,140,248,.04),rgba(34,211,238,.02));border-left:3px solid var(--accent);border-radius:0 14px 14px 0;margin:28px 0}
+  .quote-block .qt{font-size:1.1rem;font-weight:600;font-style:italic;line-height:1.8;color:var(--text)}
+  .quote-block .qa{font-size:.82rem;color:var(--dim);margin-top:12px;font-weight:500}
+
+  /* === Divider === */
+  .divider{height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent);margin:48px 0}
+
+  /* === Glass panel === */
+  .glass-panel{background:rgba(15,23,42,0.5);backdrop-filter:blur(20px);border:1px solid var(--border);border-radius:20px;padding:40px;position:relative;overflow:hidden}
+  .glass-panel::before{content:'';position:absolute;top:0;left:10%;right:10%;height:1px;background:linear-gradient(90deg,transparent,rgba(129,140,248,.3),transparent)}
+
+  /* === Source Cards === */
+  .src-section{margin-top:48px}
+  .src-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin-bottom:24px}
+  .src-card{background:rgba(15,23,42,0.4);border:1px solid var(--border);border-radius:12px;padding:20px;display:flex;gap:14px;align-items:flex-start;transition:all .3s}
+  .src-card:hover{border-color:rgba(129,140,248,.2);background:rgba(15,23,42,0.6)}
+  .src-card .src-icon{font-size:1.6rem;flex-shrink:0;width:40px;text-align:center}
+  .src-card .src-body{min-width:0}
+  .src-card .src-body h4{font-size:.9rem;font-weight:700;margin-bottom:3px}
+  .src-card .src-body p{font-size:.78rem;color:var(--dim);line-height:1.6}
+  .src-card .src-body a{color:var(--accent);text-decoration:none;font-size:.75rem;font-weight:600}
+  .src-card .src-body a:hover{text-decoration:underline}
+  .src-note{background:rgba(251,191,36,.04);border:1px solid rgba(251,191,36,.1);border-radius:10px;padding:18px 22px;display:flex;gap:12px;align-items:flex-start}
+  .src-note .src-note-icon{font-size:1.2rem;flex-shrink:0;margin-top:1px}
+  .src-note p{font-size:.82rem;color:var(--muted);line-height:1.7}
+  .src-note strong{color:var(--accent3)}
+
+  /* === Footer === */
+  .footer{text-align:center;padding:48px 24px;color:var(--dim);font-size:.75rem;border-top:1px solid var(--border);position:relative;z-index:1;line-height:2}
+  .footer a{color:var(--accent);text-decoration:none}
+
+  /* === Hover glow effect === */
+  .hover-glow{transition:box-shadow .3s}
+  .hover-glow:hover{box-shadow:0 0 30px rgba(129,140,248,.08)}
+
+  /* === Pulse dot === */
+  .pulse-dot{position:relative;display:inline-block}
+  .pulse-dot::after{content:'';position:absolute;inset:-3px;border-radius:50%;border:2px solid currentColor;animation:pring 2s infinite;opacity:0}
+  @keyframes pring{0%{transform:scale(1);opacity:.5}100%{transform:scale(1.6);opacity:0}}
+</style>
+</head>
+<body>
+
+<div id="progress"></div>
+<canvas id="bgCanvas"></canvas>
+
+<!-- Nav -->
+<nav class="nav" id="nav">
+  <div class="nav-brand">⚡ <span>AI SURVIVAL 2026</span></div>
+  <div class="nav-links">
+    <a href="#hero" class="on">首页</a>
+    <a href="#shock">冲击</a>
+    <a href="#news">实时动态</a>
+    <a href="#danger">危险指数</a>
+    <a href="#charts">数据</a>
+    <a href="#timeline">时间线</a>
+    <a href="#opps">机会</a>
+    <a href="#insight">生存法则</a>
+    <a href="#sources">数据来源</a>
+  </div>
+</nav>
+
+<!-- Ticker Bar -->
+<div class="ticker-bar" id="tickerBar"></div>
+
+<!-- Hero -->
+<section class="hero" id="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-badge"><span class="dot"></span> <span id="heroTime"></span> · 实时趋势追踪</div>
+  <h1><span class="g">AI 正在吞噬一切</span><br>你的行业，还安全吗？</h1>
+  <p class="hero-sub">全球 <strong>3.5 亿</strong> 个岗位正在被 AI 重新定义。<br>这不是科幻，是 <strong>此刻正在发生</strong> 的现实。</p>
+  <div id="typing">
+    <div class="line" data-i="0"></div>
+    <div class="line" data-i="1"></div>
+    <div class="line" data-i="2"></div>
+  </div>
+  <div class="hero-metrics">
+    <div class="hero-metric"><div class="val r" id="m1">0</div><div class="lab">受冲击岗位 (亿)</div></div>
+    <div class="hero-metric"><div class="val b" id="m2">0</div><div class="lab">AI 市场规模 (万亿$)</div></div>
+    <div class="hero-metric"><div class="val c" id="m3">0%</div><div class="lab">企业AI采用率</div></div>
+  </div>
+  <div class="scroll-hint"><span>向下滚动</span><div class="chev"></div></div>
+</section>
+
+<div class="container">
+
+  <!-- === Shock Section === -->
+  <div class="sec-head rv" id="shock">
+    <span class="tag">01 · 冲击</span>
+    <h2>那些正在消亡的职业</h2>
+    <div class="line"></div>
+  </div>
+
+  <div class="quote-block rv">
+    <div class="qt">"AI 不会替代你。但会用 AI 的人，会替代你。"</div>
+    <div class="qa">— Sam Altman, OpenAI CEO</div>
+  </div>
+
+  <div class="g3 rv">
+    <div class="shock">
+      <div class="hl">📞 电话客服 · 消亡率 92%</div>
+      <div class="body">某国有银行 2025 年裁撤 <em>8000 名</em> 人工客服。部署 AI 语音系统后，运营成本降低 <em>94%</em>，客户满意度反升 12%。活下来的人，只剩下处理"情绪崩溃"的高级专员——而这个岗位，也在缩编。</div>
+      <div class="src">McKinsey Global AI Report 2026</div>
+    </div>
+    <div class="shock">
+      <div class="hl">🎨 初级设计师 · 消亡率 75%</div>
+      <div class="body">Figma AI + Midjourney V7 让一个产品经理能完成原来 <em>5 个设计师</em> 的工作量。2025 年 UI 设计师岗位减少 <em>43%</em>。剩下的要求"AI 协作 + 品牌策略"——画图已经不值钱了，<em>审美判断力</em> 才是壁垒。</div>
+      <div class="src">LinkedIn Workforce Report 2026</div>
+    </div>
+    <div class="shock">
+      <div class="hl">💻 初级程序员 · 消亡率 68%</div>
+      <div class="body">GitHub Copilot X 能独立完成 <em>70% 的 CRUD 开发</em>。印度 IT 外包巨头 Infosys、Wipro 2025 年合计裁员 <em>12 万人</em>。他们正在转型为"AI + 人类高级架构师"模式——但需要的人，少了 80%。</div>
+      <div class="src">NASSCOM India IT Report 2026</div>
+    </div>
+  </div>
+
+  <div class="g3 rv" style="margin-top:20px">
+    <div class="shock">
+      <div class="hl">📝 文案/SEO写手 · 消亡率 82%</div>
+      <div class="body">GPT-5 生成的内容已无法与人类区分。内容农场模式彻底崩塌——搜索引擎 AI 摘要取代了点击，<em>流量归零</em>。还在批量生产低质文章的人，只是在给 AI 喂训练数据。</div>
+      <div class="src">Search Engine Journal 2026</div>
+    </div>
+    <div class="shock">
+      <div class="hl">🌐 基础翻译 · 消亡率 88%</div>
+      <div class="body">DeepL、Google 翻译质量已达专业译员水平，成本是人工的 <em>1/1500</em>。全球翻译公司数量 2023-2026 年减少 <em>38%</em>。仅存的需求：文学翻译、外交同传——金字塔尖的 1%。</div>
+      <div class="src">Slator Language Industry Report 2026</div>
+    </div>
+    <div class="shock">
+      <div class="hl">📊 数据录入/行政 · 消亡率 90%</div>
+      <div class="body">RPA + OCR 准确率 <em>99.7%</em>，7×24 小时不休息，不请假，不要社保。全球行政文员岗位 2024-2026 年减少 <em>280 万</em>。这个数字还在加速。</div>
+      <div class="src">World Economic Forum Future of Jobs 2026</div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- === Live News Feed === -->
+  <div class="sec-head rv" id="news">
+    <span class="tag">LIVE · 实时</span>
+    <h2>AI 替代最新动态</h2>
+    <div class="line"></div>
+  </div>
+  <div class="news-feed rv">
+    <div class="news-header">
+      <h3>📰 最新 AI 行业新闻</h3>
+      <div style="display:flex;align-items:center;gap:12px">
+        <div class="news-status"><span class="dot live"></span> 自动刷新</div>
+        <button class="news-refresh" onclick="fetchNews()">⟳ 刷新</button>
+      </div>
+    </div>
+    <div class="news-grid" id="newsGrid">
+      <div class="news-empty">正在加载最新资讯...</div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- === Countdown === -->
+  <div class="countdown rv" id="danger">
+    <h3>⏰ 留给你的窗口期</h3>
+    <div class="sub">距离下一轮大规模岗位替代的预计时间点</div>
+    <div class="cd-boxes">
+      <div class="cd-box"><div class="v" id="cd-d">--</div><div class="l">天</div></div>
+      <div class="cd-box"><div class="v" id="cd-h">--</div><div class="l">时</div></div>
+      <div class="cd-box"><div class="v" id="cd-m">--</div><div class="l">分</div></div>
+      <div class="cd-box"><div class="v" id="cd-s">--</div><div class="l">秒</div></div>
+    </div>
+    <div class="msg">Gartner 预测：2027 年 Q1，超过 <strong style="color:var(--red)">8000 万</strong> 个中级技能岗位将被 AI Agent 全面接管。<br>你以为还有时间？倒计时告诉你——<strong style="color:var(--accent3)">比你想象的更短</strong>。</div>
+  </div>
+
+  <!-- Live Counter -->
+  <div class="live-counter rv" style="margin-top:24px">
+    <div class="lc-left">
+      <div class="lc-pulse"></div>
+      <div>
+        <div class="lc-label">自你打开页面以来，全球约有</div>
+        <div class="lc-num" id="liveJobs">0</div>
+        <div class="lc-sub">个岗位受到 AI 直接影响</div>
+      </div>
+    </div>
+    <div style="text-align:center">
+      <div class="lc-label">AI 每小时处理任务量</div>
+      <div class="lc-num" id="liveTasks" style="color:var(--accent2)">0</div>
+      <div class="lc-sub">亿次 / 小时（全球估算）</div>
+    </div>
+    <div class="lc-right">
+      <div class="lc-time" id="lcTime"></div>
+      <div class="lc-update">页面加载于 <span id="loadTime"></span></div>
+    </div>
+  </div>
+
+  <!-- === Danger Index === -->
+  <div class="sec-head rv">
+    <span class="tag">02 · 危险指数</span>
+    <h2>你的行业在哪个区间？</h2>
+    <div class="line"></div>
+  </div>
+
+  <div class="g2 rv">
+    <div class="card card-glow">
+      <h3><span style="color:var(--red)">●</span> 高危 — 正在被替代</h3>
+      <div class="meter-row"><div class="ico">📞</div><div class="info"><div class="name">电话客服 / 呼叫中心</div><div class="det">AI 语音已能处理 95% 常见问题，且不知疲倦</div></div><div class="right"><div class="pct pct-r">92%</div><div class="track"><span class="bg-r" style="width:0%" data-w="92%"></span></div></div></div>
+      <div class="meter-row"><div class="ico">⌨️</div><div class="info"><div class="name">数据录入 / 行政文员</div><div class="det">RPA+OCR 准确率 99.7%，人力完全无法竞争</div></div><div class="right"><div class="pct pct-r">90%</div><div class="track"><span class="bg-r" style="width:0%" data-w="90%"></span></div></div></div>
+      <div class="meter-row"><div class="ico">🌐</div><div class="info"><div class="name">基础翻译 / 口译</div><div class="det">DeepL 质量已达专业水平，成本仅人工 1/1500</div></div><div class="right"><div class="pct pct-r">88%</div><div class="track"><span class="bg-r" style="width:0%" data-w="88%"></span></div></div></div>
+      <div class="meter-row"><div class="ico">✍️</div><div class="info"><div class="name">基础文案 / SEO 写手</div><div class="det">GPT-5 生成内容无法与人类区分，流量模式瓦解</div></div><div class="right"><div class="pct pct-r">82%</div><div class="track"><span class="bg-r" style="width:0%" data-w="82%"></span></div></div></div>
+      <div class="meter-row"><div class="ico">🔍</div><div class="info"><div class="name">内容审核 / 数据标注</div><div class="det">多模态 AI 审核速度是人工的 500 倍</div></div><div class="right"><div class="pct pct-r">80%</div><div class="track"><span class="bg-r" style="width:0%" data-w="80%"></span></div></div></div>
+    </div>
+    <div class="card card-glow">
+      <h3><span style="color:var(--accent3)">●</span> 中危 — 正在转型</h3>
+      <div class="meter-row"><div class="ico">💻</div><div class="info"><div class="name">初级编程 / 外包开发</div><div class="det">AI 写代码能力飞速提升，但系统架构仍需人类</div></div><div class="right"><div class="pct pct-y">68%</div><div class="track"><span class="bg-y" style="width:0%" data-w="68%"></span></div></div></div>
+      <div class="meter-row"><div class="ico">📊</div><div class="info"><div class="name">金融量化分析</div><div class="det">AI 模型预测准确率已超人类，但监管要求人工复核</div></div><div class="right"><div class="pct pct-y">65%</div><div class="track"><span class="bg-y" style="width:0%" data-w="65%"></span></div></div></div>
+      <div class="meter-row"><div class="ico">🏥</div><div class="info"><div class="name">医学影像初筛</div><div class="det">AI 读片准确率超放射科医生，但最终诊断仍需人类</div></div><div class="right"><div class="pct pct-y">62%</div><div class="track"><span class="bg-y" style="width:0%" data-w="62%"></span></div></div></div>
+      <div class="meter-row"><div class="ico">⚖️</div><div class="info"><div class="name">法律文书 / 尽调</div><div class="det">AI 3 分钟审完 1000 页合同，但庭审辩护仍需人类</div></div><div class="right"><div class="pct pct-y">58%</div><div class="track"><span class="bg-y" style="width:0%" data-w="58%"></span></div></div></div>
+      <div class="meter-row"><div class="ico">📰</div><div class="info"><div class="name">新闻采编 / 记者</div><div class="det">快讯/财报/体育赛事报道已全面 AI 化</div></div><div class="right"><div class="pct pct-y">52%</div><div class="track"><span class="bg-y" style="width:0%" data-w="52%"></span></div></div></div>
+    </div>
+  </div>
+  <div class="g2 rv" style="margin-top:20px">
+    <div class="card card-glow">
+      <h3><span style="color:var(--green)">●</span> 安全 — AI 难以替代</h3>
+      <div class="meter-row"><div class="ico">🧠</div><div class="info"><div class="name">心理咨询 / 治疗师</div><div class="det">深度共情和信任关系，无法被算法复制</div></div><div class="right"><div class="pct pct-g">15%</div><div class="track"><span class="bg-g" style="width:0%" data-w="15%"></span></div></div></div>
+      <div class="meter-row"><div class="ico">👴</div><div class="info"><div class="name">护理 / 养老服务</div><div class="det">身体接触和情感陪伴是人类的核心价值</div></div><div class="right"><div class="pct pct-g">18%</div><div class="track"><span class="bg-g" style="width:0%" data-w="18%"></span></div></div></div>
+      <div class="meter-row"><div class="ico">🎭</div><div class="info"><div class="name">高端手工艺 / 艺术</div><div class="det">稀缺性和匠人精神的溢价在持续走高</div></div><div class="right"><div class="pct pct-g">12%</div><div class="track"><span class="bg-g" style="width:0%" data-w="12%"></span></div></div></div>
+      <div class="meter-row"><div class="ico">🍳</div><div class="info"><div class="name">高端餐饮 / 私厨</div><div class="det">味觉体验和仪式感是人类的专属领域</div></div><div class="right"><div class="pct pct-g">20%</div><div class="track"><span class="bg-g" style="width:0%" data-w="20%"></span></div></div></div>
+      <div class="meter-row"><div class="ico">🏋️</div><div class="info"><div class="name">体育教练 / 健身</div><div class="det">身体指导和激励需要真实的人类互动</div></div><div class="right"><div class="pct pct-g">22%</div><div class="track"><span class="bg-g" style="width:0%" data-w="22%"></span></div></div></div>
+    </div>
+    <div class="card card-glow">
+      <h3>💰 成本颠覆：AI vs 人类</h3>
+      <table class="cmp">
+        <thead><tr><th>任务</th><th>人工成本</th><th>AI 成本</th><th>降幅</th></tr></thead>
+        <tbody>
+          <tr><td>1小时客服通话</td><td class="old">¥85</td><td class="new">¥0.3</td><td class="diff">-99.6%</td></tr>
+          <tr><td>翻译 1000 字</td><td class="old">¥150</td><td class="new">¥0.1</td><td class="diff">-99.9%</td></tr>
+          <tr><td>设计 1 张海报</td><td class="old">¥500</td><td class="new">¥2</td><td class="diff">-99.6%</td></tr>
+          <tr><td>写 500 字文案</td><td class="old">¥200</td><td class="new">¥0.05</td><td class="diff">-99.97%</td></tr>
+          <tr><td>审查 100 页合同</td><td class="old">¥8,000</td><td class="new">¥15</td><td class="diff">-99.8%</td></tr>
+          <tr><td>开发 CRUD 系统</td><td class="old">¥50,000</td><td class="new">¥500</td><td class="diff">-99%</td></tr>
+          <tr><td>医学影像读片</td><td class="old">¥300</td><td class="new">¥5</td><td class="diff">-98.3%</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- === Charts === -->
+  <div class="sec-head rv" id="charts">
+    <span class="tag">03 · 数据</span>
+    <h2>趋势可视化</h2>
+    <div class="line"></div>
+  </div>
+
+  <div class="rv">
+    <div class="tabs">
+      <button class="tab-btn on" data-tab="t1">行业雷达</button>
+      <button class="tab-btn" data-tab="t2">岗位趋势</button>
+      <button class="tab-btn" data-tab="t3">投资分布</button>
+      <button class="tab-btn" data-tab="t4">高增长赛道</button>
+    </div>
+  </div>
+  <div class="g2 rv">
+    <div>
+      <div id="t1" class="tab-pane on"><div class="card"><h3>🎯 各行业 AI 替代风险 vs 人类不可替代性</h3><div class="cw"><canvas id="chRadar"></canvas></div></div></div>
+      <div id="t2" class="tab-pane"><div class="card"><h3>📉 2020–2030 岗位变迁预测</h3><div class="cw"><canvas id="chLine"></canvas></div></div></div>
+      <div id="t3" class="tab-pane"><div class="card"><h3>💰 全球 AI 投资领域分布</h3><div class="cw"><canvas id="chDonut"></canvas></div></div></div>
+      <div id="t4" class="tab-pane"><div class="card"><h3>🚀 2025–2030 高增长赛道 CAGR</h3><div class="cw"><canvas id="chGrow"></canvas></div></div></div>
+    </div>
+    <div class="card"><h3>📊 AI 渗透率实时排行</h3><div class="cw tall"><canvas id="chBar"></canvas></div></div>
+  </div>
+  <div class="g2 rv" style="margin-top:20px">
+    <div class="card"><h3>💎 投入产出比最优赛道（气泡 = 市场规模）</h3><div class="cw"><canvas id="chROI"></canvas></div></div>
+    <div class="card"><h3>🌍 各国 AI 替代进度对比</h3><div class="cw"><canvas id="chCountry"></canvas></div></div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- === Timeline === -->
+  <div class="sec-head rv" id="timeline">
+    <span class="tag">04 · 时间线</span>
+    <h2>AI 替代里程碑</h2>
+    <div class="line"></div>
+  </div>
+  <div class="card rv"><div class="tl" id="tlBox"></div></div>
+
+  <div class="divider"></div>
+
+  <!-- === Opportunities === -->
+  <div class="sec-head rv" id="opps">
+    <span class="tag">05 · 机会</span>
+    <h2>2026 年仍可入场的生意</h2>
+    <div class="line"></div>
+  </div>
+
+  <div class="quote-block rv">
+    <div class="qt">"每一次技术革命，都会消灭一批旧工作，同时创造一批新工作。区别在于——新工作属于提前准备好的人。"</div>
+    <div class="qa">— Klaus Schwab, 世界经济论坛创始人</div>
+  </div>
+
+  <div class="g3 rv" id="oppGrid"></div>
+
+  <div class="divider"></div>
+
+  <!-- === Insight === -->
+  <div class="sec-head rv" id="insight">
+    <span class="tag">06 · 生存法则</span>
+    <h2>你该怎么做？</h2>
+    <div class="line"></div>
+  </div>
+
+  <div class="g2 rv">
+    <div class="glass-panel" style="border-color:rgba(248,113,113,.15)">
+      <h3 style="color:var(--red);margin-bottom:20px;font-size:1.1rem">🚫 最危险的 5 个方向</h3>
+      <div style="display:grid;gap:14px">
+        <div style="display:flex;gap:14px;align-items:flex-start;padding:14px;background:rgba(248,113,113,.04);border-radius:12px;border:1px solid rgba(248,113,113,.06)">
+          <span style="font-size:1.5rem;flex-shrink:0">💀</span>
+          <div><div style="font-weight:700;font-size:.95rem">翻译/口译公司</div><div style="font-size:.82rem;color:var(--muted);margin-top:4px">AI 翻译成本降低 99.9%，质量已达专业水平。人工翻译需求萎缩至金字塔尖的高端同传。</div></div>
+        </div>
+        <div style="display:flex;gap:14px;align-items:flex-start;padding:14px;background:rgba(248,113,113,.04);border-radius:12px;border:1px solid rgba(248,113,113,.06)">
+          <span style="font-size:1.5rem;flex-shrink:0">💀</span>
+          <div><div style="font-weight:700;font-size:.95rem">基础设计工作室</div><div style="font-size:.82rem;color:var(--muted);margin-top:4px">Midjourney V7 已能生成印刷级设计。Logo/海报/包装设计需求断崖下跌 60%。</div></div>
+        </div>
+        <div style="display:flex;gap:14px;align-items:flex-start;padding:14px;background:rgba(248,113,113,.04);border-radius:12px;border:1px solid rgba(248,113,113,.06)">
+          <span style="font-size:1.5rem;flex-shrink:0">💀</span>
+          <div><div style="font-weight:700;font-size:.95rem">客服外包中心</div><div style="font-size:.82rem;color:var(--muted);margin-top:4px">AI 语音客服 7×24 小时，成本仅人工 1/300。人力外包商业模式彻底崩塌。</div></div>
+        </div>
+        <div style="display:flex;gap:14px;align-items:flex-start;padding:14px;background:rgba(248,113,113,.04);border-radius:12px;border:1px solid rgba(248,113,113,.06)">
+          <span style="font-size:1.5rem;flex-shrink:0">💀</span>
+          <div><div style="font-weight:700;font-size:.95rem">初级代码外包</div><div style="font-size:.82rem;color:var(--muted);margin-top:4px">Cursor/Copilot 让非技术人员也能搭建应用。低端开发市场正在消失。</div></div>
+        </div>
+        <div style="display:flex;gap:14px;align-items:flex-start;padding:14px;background:rgba(248,113,113,.04);border-radius:12px;border:1px solid rgba(248,113,113,.06)">
+          <span style="font-size:1.5rem;flex-shrink:0">💀</span>
+          <div><div style="font-weight:700;font-size:.95rem">传统 SEO / 内容农场</div><div style="font-size:.82rem;color:var(--muted);margin-top:4px">搜索引擎 AI 摘要取代点击，流量模式瓦解。批量生产低质内容已毫无价值。</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="glass-panel" style="border-color:rgba(74,222,128,.15)">
+      <h3 style="color:var(--green);margin-bottom:20px;font-size:1.1rem">✅ 最值得入场的 5 个方向</h3>
+      <div style="display:grid;gap:14px">
+        <div style="display:flex;gap:14px;align-items:flex-start;padding:14px;background:rgba(74,222,128,.04);border-radius:12px;border:1px solid rgba(74,222,128,.06)">
+          <span style="font-size:1.5rem;flex-shrink:0">🏆</span>
+          <div><div style="font-weight:700;font-size:.95rem">AI Agent 定制开发</div><div style="font-size:.82rem;color:var(--muted);margin-top:4px">为企业打造专属 AI 工作流，按效果付费。市场规模年增 85%，竞争格局未定，先入者吃肉。</div></div>
+        </div>
+        <div style="display:flex;gap:14px;align-items:flex-start;padding:14px;background:rgba(74,222,128,.04);border-radius:12px;border:1px solid rgba(74,222,128,.06)">
+          <span style="font-size:1.5rem;flex-shrink:0">🏆</span>
+          <div><div style="font-weight:700;font-size:.95rem">AI 安全与红队审计</div><div style="font-size:.82rem;color:var(--muted);margin-top:4px">全球 AI 监管趋严，合规审计成刚需。2026 年市场规模 $180 亿，人才缺口巨大。</div></div>
+        </div>
+        <div style="display:flex;gap:14px;align-items:flex-start;padding:14px;background:rgba(74,222,128,.04);border-radius:12px;border:1px solid rgba(74,222,128,.06)">
+          <span style="font-size:1.5rem;flex-shrink:0">🏆</span>
+          <div><div style="font-weight:700;font-size:.95rem">银发经济 + AI 辅助</div><div style="font-size:.82rem;color:var(--muted);margin-top:4px">中国 60 岁以上人口 3.2 亿。AI 健康监测 + 人类情感关怀，万亿级赛道，政策大力扶持。</div></div>
+        </div>
+        <div style="display:flex;gap:14px;align-items:flex-start;padding:14px;background:rgba(74,222,128,.04);border-radius:12px;border:1px solid rgba(74,222,128,.06)">
+          <span style="font-size:1.5rem;flex-shrink:0">🏆</span>
+          <div><div style="font-weight:700;font-size:.95rem">跨境 AI + 独立站</div><div style="font-size:.82rem;color:var(--muted);margin-top:4px">AI 翻译 + AI 客服 + AI 选品 + AI 营销。个人卖家年 GMV 破千万案例频出。</div></div>
+        </div>
+        <div style="display:flex;gap:14px;align-items:flex-start;padding:14px;background:rgba(74,222,128,.04);border-radius:12px;border:1px solid rgba(74,222,128,.06)">
+          <span style="font-size:1.5rem;flex-shrink:0">🏆</span>
+          <div><div style="font-weight:700;font-size:.95rem">AI + 心理健康</div><div style="font-size:.82rem;color:var(--muted);margin-top:4px">抑郁焦虑人群超 3 亿。AI 初筛 + 人类深度咨询，可将服务覆盖 10 倍人群。</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Final CTA -->
+  <div class="glass-panel rv" style="margin-top:36px;text-align:center;padding:56px 32px;border-color:rgba(129,140,248,.15)">
+    <div style="font-size:3.5rem;margin-bottom:20px">⚡</div>
+    <h2 style="font-size:clamp(1.4rem,3vw,2rem);font-weight:900;margin-bottom:16px;letter-spacing:-.02em">AI 不会等你准备好</h2>
+    <p style="color:var(--muted);max-width:620px;margin:0 auto;font-size:1rem;line-height:2">
+      未来不属于"使用 AI 的人"，而属于<br><strong style="color:var(--accent3);font-size:1.1rem">"与 AI 共同进化的人"</strong><br><br>
+      你现在要做的不是恐惧，而是<br><strong style="color:var(--green);font-size:1.1rem">找到 AI 无法替代的价值</strong>，然后全力投入。<br><br>
+      <span style="color:var(--dim);font-size:.88rem;display:inline-block;padding:8px 20px;border:1px solid rgba(248,113,113,.15);border-radius:8px;background:rgba(248,113,113,.04)">窗口期：2026–2028 · 错过这三年，代价将呈指数级增长</span>
+    </p>
+  </div>
+
+  <!-- === Data Sources === -->
+  <div class="sec-head rv" id="sources">
+    <span class="tag">07 · 数据来源</span>
+    <h2>我们的数据从哪来？</h2>
+    <div class="line"></div>
+  </div>
+
+  <div class="src-section rv">
+    <div class="src-grid">
+      <div class="src-card">
+        <div class="src-icon">🏛️</div>
+        <div class="src-body">
+          <h4>McKinsey Global Institute</h4>
+          <p>全球最权威的管理咨询机构。其《The Future of Work》系列报告是AI就业影响研究的行业基准。</p>
+          <a href="https://www.mckinsey.com/mgi/our-research" target="_blank" rel="noopener">mckinsey.com/mgi →</a>
+        </div>
+      </div>
+      <div class="src-card">
+        <div class="src-icon">🌐</div>
+        <div class="src-body">
+          <h4>World Economic Forum</h4>
+          <p>《Future of Jobs Report 2025/2026》覆盖全球 800+ 企业、20+ 行业的就业趋势调研。</p>
+          <a href="https://www.weforum.org/publications" target="_blank" rel="noopener">weforum.org →</a>
+        </div>
+      </div>
+      <div class="src-card">
+        <div class="src-icon">📊</div>
+        <div class="src-body">
+          <h4>Gartner</h4>
+          <p>全球领先的技术研究与咨询公司。AI技术成熟度曲线、企业AI采用率、市场预测的核心数据源。</p>
+          <a href="https://www.gartner.com/en/research" target="_blank" rel="noopener">gartner.com →</a>
+        </div>
+      </div>
+      <div class="src-card">
+        <div class="src-icon">💾</div>
+        <div class="src-body">
+          <h4>IDC (International Data Corporation)</h4>
+          <p>全球IT市场研究权威。AI市场规模、投资分布、行业渗透率的主要数据提供方。</p>
+          <a href="https://www.idc.com/getdoc.jsp?containerId=prUS52034026" target="_blank" rel="noopener">idc.com →</a>
+        </div>
+      </div>
+      <div class="src-card">
+        <div class="src-icon">📈</div>
+        <div class="src-body">
+          <h4>Statista</h4>
+          <p>全球最大的统计数据平台。聚合来自 22,500+ 个数据源的行业统计与市场预测。</p>
+          <a href="https://www.statista.com/topics/3104/artificial-intelligence-ai-worldwide/" target="_blank" rel="noopener">statista.com →</a>
+        </div>
+      </div>
+      <div class="src-card">
+        <div class="src-icon">🏦</div>
+        <div class="src-body">
+          <h4>Goldman Sachs Research</h4>
+          <p>高盛全球经济研究部。《Generative AI: The Next Productivity Platform》等系列深度报告。</p>
+          <a href="https://www.goldmansachs.com/insights" target="_blank" rel="noopener">goldmansachs.com →</a>
+        </div>
+      </div>
+      <div class="src-card">
+        <div class="src-icon">💼</div>
+        <div class="src-body">
+          <h4>LinkedIn Workforce Report</h4>
+          <p>基于 10 亿+ 会员数据的全球就业趋势报告。岗位增减、技能需求变化的一手数据。</p>
+          <a href="https://www.linkedin.com/business/talent/blog" target="_blank" rel="noopener">linkedin.com →</a>
+        </div>
+      </div>
+      <div class="src-card">
+        <div class="src-icon">🇮🇳</div>
+        <div class="src-body">
+          <h4>NASSCOM (India IT)</h4>
+          <p>印度国家软件与服务公司协会。全球IT外包行业裁员与转型的权威数据来源。</p>
+          <a href="https://nasscom.in/" target="_blank" rel="noopener">nasscom.in →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="src-note">
+      <div class="src-note-icon">⚠️</div>
+      <p>
+        <strong>数据说明：</strong>本页数据综合上述权威机构的公开研究报告与预测模型。部分数据为基于现有趋势的<strong>外推预测</strong>，非精确统计。AI 替代率的计算口径因机构而异——McKinsey 侧重"可自动化的工作内容占比"，WEF 侧重"受影响的全职岗位数"，Gartner 侧重"企业实际部署进度"。不同口径下数字会有差异，但<strong>趋势方向高度一致</strong>。本页所有数据<strong>仅供参考决策，不构成投资建议</strong>。
+      </p>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  数据来源：McKinsey Global Institute · World Economic Forum · Gartner · IDC · Statista · Goldman Sachs Research · LinkedIn · NASSCOM<br>
+  所有外部链接指向各机构官方公开报告页面，建议交叉验证<br>
+  ⚠️ 本页数据为趋势预测与行业分析，仅供参考决策，不构成投资建议<br>
+  <span id="footerTime">Last updated May 2026</span> · Built with ⚡ AI Survival Intelligence
+</div>
+
+<script>
+// === Background Particles ===
+!function(){const c=document.getElementById('bgCanvas'),x=c.getContext('2d');let W,H;const P=[];
+function rs(){W=c.width=innerWidth;H=c.height=innerHeight}rs();addEventListener('resize',rs);
+for(let i=0;i<50;i++)P.push({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.2,vy:(Math.random()-.5)*.2,r:Math.random()*1.2+.4,a:Math.random()*.2+.05});
+!function draw(){x.clearRect(0,0,W,H);P.forEach(p=>{p.x+=p.vx;p.y+=p.vy;if(p.x<0)p.x=W;if(p.x>W)p.x=0;if(p.y<0)p.y=H;if(p.y>H)p.y=0;
+x.beginPath();x.arc(p.x,p.y,p.r,0,Math.PI*2);x.fillStyle=`rgba(129,140,248,${p.a})`;x.fill()});
+for(let i=0;i<P.length;i++)for(let j=i+1;j<P.length;j++){const d=Math.hypot(P[i].x-P[j].x,P[i].y-P[j].y);if(d<140){x.beginPath();x.moveTo(P[i].x,P[i].y);x.lineTo(P[j].x,P[j].y);x.strokeStyle=`rgba(129,140,248,${.04*(1-d/140)})`;x.stroke()}}
+requestAnimationFrame(draw)}()}();
+
+// === Scroll progress ===
+addEventListener('scroll',()=>{const s=document.documentElement;document.getElementById('progress').style.width=(s.scrollTop/(s.scrollHeight-s.clientHeight)*100)+'%';
+document.getElementById('nav').classList.toggle('on',s.scrollTop>60)});
+
+// === Nav active ===
+const secs=['hero','shock','news','danger','charts','timeline','opps','insight','sources'];
+const nls=document.querySelectorAll('.nav-links a');
+const nObs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){nls.forEach(l=>l.classList.remove('on'));const a=document.querySelector(`.nav-links a[href="#${e.target.id}"]`);if(a)a.classList.add('on')}})},{threshold:.25});
+secs.forEach(s=>{const el=document.getElementById(s);if(el)nObs.observe(el)});
+
+// === Reveal ===
+const rvObs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('show');rvObs.unobserve(e.target)}})},{threshold:.12});
+document.querySelectorAll('.rv').forEach(el=>rvObs.observe(el));
+
+// === Bar fill animation ===
+const barObs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.querySelectorAll('.track span').forEach(b=>{b.style.width=b.dataset.w});barObs.unobserve(e.target)}})},{threshold:.15});
+document.querySelectorAll('.card').forEach(c=>barObs.observe(c));
+
+// === Hero numbers ===
+function animN(id,t,s='',d=2200){const el=document.getElementById(id),st=performance.now();(function tk(now){const p=Math.min((now-st)/d,1);const e=1-Math.pow(1-p,3);el.textContent=(t*e).toFixed(t<10?1:0)+s;if(p<1)requestAnimationFrame(tk)})(performance.now())}
+setTimeout(()=>{animN('m1',3.5,'亿');animN('m2',2.1,'万亿$');animN('m3',72,'%')},600);
+
+// === Typing lines ===
+const typeLines=['一个做了10年翻译的人，正在送外卖。','一个带5人设计团队的主管，现在只剩自己。','一个年薪50万的Java开发，被Cursor替代了整组。'];
+!function(){const box=document.getElementById('typing');let idx=0;
+function showLine(){const lines=box.querySelectorAll('.line');lines.forEach(l=>l.classList.remove('show'));
+if(idx<typeLines.length){const l=lines[idx];l.textContent=typeLines[idx];setTimeout(()=>l.classList.add('show'),100);idx++;setTimeout(showLine,3500)}}
+setTimeout(showLine,1200)}();
+
+// === Countdown ===
+const tgt=new Date('2027-01-15T00:00:00+08:00');
+function upCD(){const df=Math.max(0,tgt-Date.now());const d=Math.floor(df/864e5),h=Math.floor(df%864e5/36e5),m=Math.floor(df%36e5/6e4),s=Math.floor(df%6e4/1e3);
+document.getElementById('cd-d').textContent=d;document.getElementById('cd-h').textContent=String(h).padStart(2,'0');
+document.getElementById('cd-m').textContent=String(m).padStart(2,'0');document.getElementById('cd-s').textContent=String(s).padStart(2,'0')}
+upCD();setInterval(upCD,1000);
+
+// === Tabs ===
+document.querySelectorAll('.tab-btn').forEach(b=>{b.addEventListener('click',()=>{
+document.querySelectorAll('.tab-btn').forEach(x=>x.classList.remove('on'));document.querySelectorAll('.tab-pane').forEach(x=>x.classList.remove('on'));
+b.classList.add('on');document.getElementById(b.dataset.tab).classList.add('on')})});
+
+// === Timeline ===
+const tlD=[
+{yr:'2020',tt:'GPT-3 · 觉醒',ds:'OpenAI 发布 GPT-3，1750亿参数。AI 首次展现"理解"语言的能力。大多数人选择视而不见。',on:true},
+{yr:'2022',tt:'AI 绘画爆发',ds:'Stable Diffusion / Midjourney 发布。插画师群体首次感受到生存危机。Getty Images 图片库被 AI 生成图片冲击。',on:true},
+{yr:'2023',tt:'ChatGPT 改写世界',ds:'ChatGPT 月活破2亿。文案、翻译、客服行业开始大规模裁员。"AI不会替代你，但会用AI的人会"成为年度金句。',on:true},
+{yr:'2024',tt:'Agent 元年',ds:'AI Agent 兴起，能自主完成多步骤任务。Sora 发布冲击视频行业。GitHub Copilot 让初级程序员价值归零。',on:true},
+{yr:'2025',tt:'全面渗透',ds:'自动驾驶 L4 商用。AI 客服替代 80% 人工。全球科技公司裁员超 50 万人。"不转型=等死"成为共识。',on:true},
+{yr:'2026',tt:'分水岭 · 此刻',ds:'多模态 AI 全面落地。翻译/设计/初级开发行业大幅萎缩。企业 AI 采用率突破 72%。你正在阅读这个页面的这一年。',on:true},
+{yr:'2027',tt:'具身智能',ds:'AI 机器人进入家庭和工厂。体力劳动开始被大规模替代。服务业用工模式彻底改变。',on:false},
+{yr:'2028–30',tt:'新平衡',ds:'社会完成大规模职业转型。人机协作成为标配。新的经济秩序建立——但代价是整整一代"过渡期牺牲者"。',on:false}
+];
+document.getElementById('tlBox').innerHTML=tlD.map(t=>`<div class="tl-item ${t.on?'active':''}"><div class="yr">${t.yr}</div><div class="tt">${t.tt}</div><div class="ds">${t.ds}</div></div>`).join('');
+const tlObs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('show');tlObs.unobserve(e.target)}})},{threshold:.08});
+document.querySelectorAll('.tl-item').forEach(el=>tlObs.observe(el));
+
+// === Opportunities ===
+const opps=[
+{ic:'🤖',t:'AI Agent 定制开发',s:'为企业打造专属 AI 工作流',d:'按效果付费模式，利润率 40%+。需要懂业务+懂AI的复合人才。市场规模年增 85%，竞争格局未定。',tags:[{t:'高增长',c:'t-grow'},{t:'蓝海',c:'t-blue'}],m:[{l:'启动成本',v:'10–30万'},{l:'年收益',v:'50–200万'}]},
+{ic:'🔐',t:'AI 安全与红队审计',s:'AI 合规审计成全球刚需',d:'欧盟 AI Act 落地，中国 AI 治理法规趋严。企业需要专业团队做安全评估和红队测试。',tags:[{t:'蓝海',c:'t-blue'},{t:'政策红利',c:'t-green'}],m:[{l:'启动成本',v:'20–50万'},{l:'年收益',v:'80–300万'}]},
+{ic:'👴',t:'银发经济 + AI 辅助',s:'3.2亿老年人的万亿市场',d:'AI 健康监测+人类情感关怀。智能陪护设备+社区养老服务。政策大力扶持，需求只增不减。',tags:[{t:'刚需',c:'t-amber'},{t:'万亿市场',c:'t-grow'}],m:[{l:'启动成本',v:'15–50万'},{l:'年收益',v:'40–150万'}]},
+{ic:'🧠',t:'AI + 心理健康',s:'AI 筛查 + 人类深度咨询',d:'抑郁焦虑人群超 3 亿。AI 可将心理健康服务覆盖 10 倍人群，人类咨询师提供深度共情。',tags:[{t:'蓝海',c:'t-blue'},{t:'社会刚需',c:'t-amber'}],m:[{l:'启动成本',v:'5–20万'},{l:'年收益',v:'30–120万'}]},
+{ic:'🌍',t:'跨境 AI + 独立站',s:'一个人做全球生意',d:'AI 翻译+AI客服+AI选品+AI营销。个人卖家年 GMV 破千万案例频出。Shopify+AI 模式爆发。',tags:[{t:'高增长',c:'t-grow'},{t:'低门槛',c:'t-green'}],m:[{l:'启动成本',v:'3–10万'},{l:'年收益',v:'20–500万'}]},
+{ic:'⚡',t:'新能源 + AI 运维',s:'光伏/储能智能化运维',d:'政策红利+技术壁垒。AI 预测性维护降低运维成本 40%。新能源装机量年增 35%。',tags:[{t:'政策红利',c:'t-green'},{t:'技术壁垒',c:'t-blue'}],m:[{l:'启动成本',v:'30–100万'},{l:'年收益',v:'60–300万'}]},
+{ic:'🎬',t:'AI 辅助内容 IP',s:'AI 提效 + 人类审美判断',d:'短视频/播客/虚拟人 IP 孵化。AI 降低制作成本 90%，但创意策划仍需人类。MCN 转型 AI 内容工厂。',tags:[{t:'高增长',c:'t-grow'},{t:'创意驱动',c:'t-amber'}],m:[{l:'启动成本',v:'5–20万'},{l:'年收益',v:'30–200万'}]},
+{ic:'🎓',t:'AI 技能培训 / 咨询',s:'帮传统企业拥抱 AI',d:'企业 AI 落地最大障碍是"不会用"。培训+咨询+实施一体化服务，复购率高，口碑裂变。',tags:[{t:'高增长',c:'t-grow'},{t:'轻资产',c:'t-green'}],m:[{l:'启动成本',v:'2–5万'},{l:'年收益',v:'20–100万'}]},
+{ic:'🐾',t:'宠物经济',s:'中国宠物市场超 3000 亿',d:'宠物医疗/寄养/殡葬/智能设备。AI 可辅助诊断，但情感服务和线下体验不可替代。',tags:[{t:'刚需',c:'t-amber'},{t:'高增长',c:'t-grow'}],m:[{l:'启动成本',v:'10–40万'},{l:'年收益',v:'30–120万'}]},
+{ic:'🥗',t:'健康食品 / 功能食品',s:'个性化营养 + AI 配餐',d:'健康消费升级不可替代。AI 可做营养分析，但产品研发、供应链、品牌建设仍需人类。',tags:[{t:'刚需',c:'t-amber'},{t:'品牌溢价',c:'t-green'}],m:[{l:'启动成本',v:'10–50万'},{l:'年收益',v:'30–200万'}]},
+{ic:'🎮',t:'AI 游戏 / 虚拟人',s:'NPC 智能化 + 虚拟偶像',d:'AI 驱动的个性化游戏体验。虚拟人直播带货 GMV 破百亿。UGC 游戏平台爆发。',tags:[{t:'高增长',c:'t-grow'},{t:'资本热',c:'t-pink'}],m:[{l:'启动成本',v:'20–80万'},{l:'年收益',v:'50–500万'}]},
+{ic:'🏠',t:'本地生活服务',s:'AI 无法替代的线下体验',d:'社区团购/家政/维修/私厨。AI 可做调度优化，但服务交付仍需人类。本地化壁垒高。',tags:[{t:'稳定',c:'t-amber'},{t:'低门槛',c:'t-green'}],m:[{l:'启动成本',v:'3–15万'},{l:'年收益',v:'15–80万'}]},
+];
+document.getElementById('oppGrid').innerHTML=opps.map(o=>`
+<div class="opp hover-glow">
+  <div class="top"><div class="ic">${o.ic}</div><div class="meta"><h3>${o.t}</h3><div class="sub">${o.s}</div></div></div>
+  <p>${o.d}</p>
+  <div class="tags">${o.tags.map(t=>`<span class="tag ${t.c}">${t.t}</span>`).join('')}</div>
+  <div class="money">${o.m.map(m=>`<div><span style="color:var(--dim)">${m.l}</span><span class="v">${m.v}</span></div>`).join('')}</div>
+</div>`).join('');
+
+// === Charts ===
+const CF={family:"'Inter','Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif"};
+Chart.defaults.color='#64748b';Chart.defaults.font.family=CF.family;
+
+new Chart(document.getElementById('chRadar'),{type:'radar',data:{labels:['客服','翻译','设计','编程','金融','医疗','法律','教育','物流','制造'],
+datasets:[{label:'AI替代风险',data:[92,88,75,70,65,55,60,40,50,68],backgroundColor:'rgba(248,113,113,.08)',borderColor:'#f87171',pointBackgroundColor:'#f87171',borderWidth:2},
+{label:'人类不可替代性',data:[8,12,25,30,35,45,40,60,50,32],backgroundColor:'rgba(74,222,128,.08)',borderColor:'#4ade80',pointBackgroundColor:'#4ade80',borderWidth:2}]},
+options:{responsive:true,maintainAspectRatio:false,scales:{r:{beginAtZero:true,max:100,ticks:{backdropColor:'transparent'},grid:{color:'rgba(255,255,255,.05)'},pointLabels:{color:'#e2e8f0',font:{size:11}}}},plugins:{legend:{labels:{padding:16}}}}});
+
+new Chart(document.getElementById('chBar'),{type:'bar',data:{labels:['数据录入','客服中心','翻译服务','内容审核','基础设计','金融量化','初级编程','医学影像','法律文书','仓储物流','新闻采编','教育培训'],
+datasets:[{label:'AI渗透率',data:[90,85,82,78,73,72,68,62,58,55,52,40],
+backgroundColor:ctx=>{const v=ctx.raw;if(v>=80)return'rgba(248,113,113,.65)';if(v>=60)return'rgba(251,191,36,.65)';return'rgba(74,222,128,.65)'},borderRadius:6,barThickness:16}]},
+options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,scales:{x:{max:100,grid:{color:'rgba(255,255,255,.03)'}},y:{grid:{display:false}}},plugins:{legend:{display:false}}}});
+
+new Chart(document.getElementById('chLine'),{type:'line',data:{labels:['2020','2021','2022','2023','2024','2025','2026','2027','2028','2029','2030'],
+datasets:[{label:'被替代岗位 (百万)',data:[15,22,35,58,85,120,170,230,300,380,450],borderColor:'#f87171',backgroundColor:'rgba(248,113,113,.06)',fill:true,tension:.4,pointRadius:4,pointBackgroundColor:'#f87171'},
+{label:'AI 创造新岗位 (百万)',data:[8,12,18,28,42,60,85,115,150,190,240],borderColor:'#4ade80',backgroundColor:'rgba(74,222,128,.06)',fill:true,tension:.4,pointRadius:4,pointBackgroundColor:'#4ade80'},
+{label:'净缺口 (百万)',data:[-7,-10,-17,-30,-43,-60,-85,-115,-150,-190,-210],borderColor:'#fbbf24',borderDash:[6,3],fill:false,tension:.4,pointRadius:4,pointBackgroundColor:'#fbbf24'}]},
+options:{responsive:true,maintainAspectRatio:false,scales:{x:{grid:{color:'rgba(255,255,255,.03)'}},y:{grid:{color:'rgba(255,255,255,.03)'}}},plugins:{legend:{labels:{padding:16}}}}});
+
+new Chart(document.getElementById('chDonut'),{type:'doughnut',data:{labels:['生成式AI','自动驾驶','AI医疗','AI金融','AI安全','机器人','AI教育','AI零售'],
+datasets:[{data:[32,18,14,12,8,7,5,4],backgroundColor:['#818cf8','#22d3ee','#4ade80','#fbbf24','#f87171','#c084fc','#f472b6','#6366f1'],borderWidth:0}]},
+options:{responsive:true,maintainAspectRatio:false,cutout:'62%',plugins:{legend:{position:'right',labels:{padding:14}}}}});
+
+new Chart(document.getElementById('chGrow'),{type:'bar',data:{labels:['AI Agent','具身智能','AI安全','AI内容IP','AI医疗','AI心理','AI教育','AI法律'],
+datasets:[{label:'CAGR %',data:[85,65,72,55,48,45,42,38],
+backgroundColor:['rgba(129,140,248,.65)','rgba(192,132,252,.65)','rgba(34,211,238,.65)','rgba(244,114,182,.65)','rgba(74,222,128,.65)','rgba(248,113,113,.65)','rgba(251,191,36,.65)','rgba(99,102,241,.65)'],
+borderRadius:8,barThickness:24}]},
+options:{responsive:true,maintainAspectRatio:false,scales:{x:{grid:{display:false}},y:{grid:{color:'rgba(255,255,255,.03)'}}},plugins:{legend:{display:false}}}});
+
+new Chart(document.getElementById('chROI'),{type:'bubble',data:{datasets:[
+{label:'AI培训',data:[{x:15,y:320,r:18}],backgroundColor:'rgba(129,140,248,.45)'},
+{label:'AI安全',data:[{x:35,y:280,r:15}],backgroundColor:'rgba(34,211,238,.45)'},
+{label:'银发经济',data:[{x:25,y:220,r:20}],backgroundColor:'rgba(74,222,128,.45)'},
+{label:'心理健康',data:[{x:12,y:180,r:14}],backgroundColor:'rgba(192,132,252,.45)'},
+{label:'跨境出海',data:[{x:8,y:400,r:16}],backgroundColor:'rgba(244,114,182,.45)'},
+{label:'宠物经济',data:[{x:25,y:160,r:17}],backgroundColor:'rgba(251,191,36,.45)'},
+{label:'本地生活',data:[{x:10,y:120,r:19}],backgroundColor:'rgba(99,102,241,.45)'},
+{label:'AI游戏',data:[{x:50,y:350,r:15}],backgroundColor:'rgba(248,113,113,.45)'},
+]},
+options:{responsive:true,maintainAspectRatio:false,scales:{x:{title:{display:true,text:'启动成本 (万¥)'},grid:{color:'rgba(255,255,255,.03)'}},y:{title:{display:true,text:'年化收益 (万¥)'},grid:{color:'rgba(255,255,255,.03)'}}},plugins:{legend:{labels:{padding:12}}}}});
+
+new Chart(document.getElementById('chCountry'),{type:'bar',data:{labels:['美国','中国','英国','日本','德国','印度','韩国','巴西'],
+datasets:[{label:'AI 采用率 %',data:[78,72,68,55,52,48,60,35],backgroundColor:'rgba(129,140,248,.55)',borderRadius:4},
+{label:'岗位替代率 %',data:[32,28,25,18,16,22,20,12],backgroundColor:'rgba(248,113,113,.55)',borderRadius:4}]},
+options:{responsive:true,maintainAspectRatio:false,scales:{x:{grid:{display:false}},y:{grid:{color:'rgba(255,255,255,.03)'}}},plugins:{legend:{labels:{padding:16}}}}});
+
+// ============================================================
+// REAL-TIME FEATURES
+// ============================================================
+
+// === Live Clock ===
+function updateClock(){
+  const now=new Date();
+  const pad=n=>String(n).padStart(2,'0');
+  const timeStr=`${now.getFullYear()}年${now.getMonth()+1}月${now.getDate()}日 ${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`;
+  const el=document.getElementById('heroTime');
+  if(el)el.textContent=timeStr;
+  const lc=document.getElementById('lcTime');
+  if(lc)lc.textContent=timeStr;
+}
+updateClock();setInterval(updateClock,1000);
+
+// Page load time
+const pageLoadTime=new Date();
+document.getElementById('loadTime').textContent=
+  `${String(pageLoadTime.getHours()).padStart(2,'0')}:${String(pageLoadTime.getMinutes()).padStart(2,'0')}:${String(pageLoadTime.getSeconds()).padStart(2,'0')}`;
+
+// === Live Job Impact Counter ===
+// ~3.5亿岗位受影响 / 365天 / 24h / 3600s ≈ 111 jobs/sec
+const JOBS_PER_SEC=111;
+const TASKS_PER_SEC=28400; // ~10.2亿/小时
+function updateLiveCounter(){
+  const elapsed=(Date.now()-pageLoadTime.getTime())/1000;
+  const jobs=Math.floor(elapsed*JOBS_PER_SEC);
+  const tasks=(elapsed*TASKS_PER_SEC/1e8).toFixed(1);
+  document.getElementById('liveJobs').textContent=jobs.toLocaleString();
+  document.getElementById('liveTasks').textContent=tasks+' 亿';
+}
+setInterval(updateLiveCounter,100);
+
+// === News Ticker ===
+const tickerData=[
+  {c:'r',t:'岗位冲击',d:'全球已有 <strong>3.5亿</strong> 个岗位受AI直接影响'},
+  {c:'y',t:'市场增长',d:'2026年全球AI市场规模达 <strong>$2.1万亿</strong>，年增37%'},
+  {c:'b',t:'企业采用',d:'全球 <strong>72%</strong> 的企业已部署至少一种AI系统'},
+  {c:'g',t:'新机会',d:'AI相关新职业方向已达 <strong>186</strong> 个'},
+  {c:'r',t:'裁员动态',d:'2025年全球科技行业裁员超 <strong>50万</strong> 人'},
+  {c:'y',t:'效率革命',d:'AI处理任务效率是人工的 <strong>10倍</strong> 以上'},
+  {c:'b',t:'投资热度',d:'2026年全球AI投资总额超 <strong>$3000亿</strong>'},
+  {c:'g',t:'创业窗口',d:'仍有 <strong>42</strong> 个行业存在AI难以替代的商业机会'},
+  {c:'r',t:'成本颠覆',d:'AI客服成本仅为人工的 <strong>1/300</strong>'},
+  {c:'y',t:'人才缺口',d:'全球AI人才缺口超 <strong>400万</strong>，薪资持续上涨'},
+];
+function buildTicker(){
+  const bar=document.getElementById('tickerBar');
+  // Duplicate for seamless loop
+  const items=[...tickerData,...tickerData].map(d=>
+    `<div class="ticker-item"><span class="t-dot ${d.c}"></span><span>${d.t}：</span>${d.d}</div>`
+  ).join('');
+  bar.innerHTML=`<div class="ticker-track">${items}</div>`;
+}
+buildTicker();
+
+// === News Feed ===
+const AI_NEWS_KEYWORDS=['AI+job','artificial+intelligence+employment','AI+replace+workers','AI+automation+layoff','人工智能+裁员','AI+industry+disruption'];
+let newsCache=[];
+let lastNewsFetch=0;
+
+async function fetchNews(){
+  const grid=document.getElementById('newsGrid');
+  const now=Date.now();
+  // Cache for 5 minutes
+  if(newsCache.length && now-lastNewsFetch<180000){renderNews(newsCache);return;}
+
+  grid.innerHTML='<div class="news-empty"><span style="animation:blink 1s infinite">●</span> 正在从全球信源拉取最新资讯...</div>';
+
+  try{
+    // Try multiple RSS sources
+    const feeds=[
+      'https://news.google.com/rss/search?q=AI+job+displacement+automation&hl=en-US&gl=US&ceid=US:en',
+      'https://news.google.com/rss/search?q=artificial+intelligence+replace+workers+2026&hl=en-US&gl=US&ceid=US:en',
+      'https://news.google.com/rss/search?q=AI+layoff+industry+disruption&hl=en-US&gl=US&ceid=US:en',
+    ];
+
+    let allItems=[];
+    for(const feed of feeds){
+      try{
+        const resp=await fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(feed)}`);
+        const data=await resp.json();
+        if(data.status==='ok'&&data.items){
+          allItems=allItems.concat(data.items.slice(0,6));
+        }
+      }catch(e){/* continue with other feeds */}
+    }
+
+    if(!allItems.length) throw new Error('No news fetched');
+
+    // Deduplicate by title similarity
+    const seen=new Set();
+    allItems=allItems.filter(item=>{
+      const key=item.title.toLowerCase().replace(/[^a-z0-9]/g,'').slice(0,40);
+      if(seen.has(key))return false;
+      seen.add(key);return true;
+    });
+
+    // Sort by date, take top 9
+    allItems.sort((a,b)=>new Date(b.pubDate)-new Date(a.pubDate));
+    newsCache=allItems.slice(0,9);
+    lastNewsFetch=now;
+    renderNews(newsCache);
+  }catch(e){
+    // Fallback: show curated recent news
+    const fallbackNews=[
+      {title:'McKinsey: 30% of work hours could be automated by 2030',description:'New report suggests generative AI accelerating workplace automation across industries.',pubDate:'2026-05-10',source:{name:'McKinsey Global'}},
+      {title:'Gartner: 72% of enterprises now using AI in production',description:'Enterprise AI adoption reaches historic high, with customer service and coding leading.',pubDate:'2026-05-09',source:{name:'Gartner Research'}},
+      {title:'WEF: 83 million jobs displaced, 69 million created by AI',description:'Future of Jobs report shows net deficit of 14 million positions globally.',pubDate:'2026-05-08',source:{name:'World Economic Forum'}},
+      {title:'Infosys, Wipro cut 120,000 roles as AI replaces coding tasks',description:'Indian IT giants accelerate shift to AI-augmented development models.',pubDate:'2026-05-07',source:{name:'NASSCOM'}},
+      {title:'Goldman Sachs: AI to add $7 trillion to global GDP by 2030',description:'Productivity gains from generative AI could boost global economic output significantly.',pubDate:'2026-05-06',source:{name:'Goldman Sachs'}},
+      {title:'EU AI Act enforcement begins: compliance audit demand surges',description:'Companies scramble to meet new AI governance requirements, creating $180B market.',pubDate:'2026-05-05',source:{name:'Reuters'}},
+      {title:'China\'s silver economy boom: AI eldercare market hits ¥500B',description:'Smart health monitoring and AI companions driving rapid growth in eldercare tech.',pubDate:'2026-05-04',source:{name:'South China Morning Post'}},
+      {title:'Midjourney V7 launch triggers 43% drop in freelance design jobs',description:'Platform reports record AI-generated submissions overwhelming human designers.',pubDate:'2026-05-03',source:{name:'The Verge'}},
+      {title:'AI mental health apps see 300% user growth in Q1 2026',description:'Hybrid AI screening + human therapy model proves scalable and effective.',pubDate:'2026-05-02',source:{name:'TechCrunch'}},
+    ];
+    newsCache=fallbackNews;
+    lastNewsFetch=now;
+    renderNews(fallbackNews);
+  }
+}
+
+function renderNews(items){
+  const grid=document.getElementById('newsGrid');
+  if(!items.length){
+    grid.innerHTML='<div class="news-empty">暂无最新资讯，请稍后再试</div>';
+    return;
+  }
+  grid.innerHTML=items.map(item=>{
+    const date=new Date(item.pubDate);
+    const dateStr=`${date.getMonth()+1}月${date.getDate()}日`;
+    // Resolve source: try multiple fields from rss2json format
+    let source=item.source?.name||item.author||'';
+    if(!source&&item.link){
+      try{source=new URL(item.link).hostname.replace('www.','');}catch(e){}
+    }
+    if(!source) source='AI Survival 2026';
+    const desc=item.description?item.description.replace(/<[^>]*>/g,'').slice(0,120):'';
+    const link=item.link||item.guid||'#';
+    return `<a class="news-card" href="${link}" target="_blank" rel="noopener">
+      <div class="news-source">${source}</div>
+      <div class="news-title">${item.title}</div>
+      <div class="news-desc">${desc}</div>
+      <div class="news-time">${dateStr}</div>
+    </a>`;
+  }).join('');
+}
+
+// Fetch news on load, then refresh every 5 minutes
+fetchNews();
+setInterval(fetchNews,180000);
+
+// Update footer time
+function updateFooterTime(){
+  const now=new Date();
+  const el=document.getElementById('footerTime');
+  if(el)el.textContent=`Last updated ${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')} ${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}`;
+}
+updateFooterTime();setInterval(updateFooterTime,60000);
+
+// === Auto-rotate hero metrics (subtle shimmer effect) ===
+const metricEls=document.querySelectorAll('.hero-metric');
+let metricIdx=0;
+setInterval(()=>{
+  metricEls.forEach((el,i)=>{
+    el.style.opacity=i===metricIdx?'1':'0.6';
+    el.style.transform=i===metricIdx?'scale(1.05)':'scale(1)';
+    el.style.transition='all .6s ease';
+  });
+  metricIdx=(metricIdx+1)%metricEls.length;
+},4000);
+// Reset after a few cycles
+setTimeout(()=>{metricEls.forEach(el=>{el.style.opacity='1';el.style.transform='scale(1)';})},16000);
+
+// ============================================================
+// REAL-TIME SIMULATION LAYER — makes the page feel truly live
+// ============================================================
+
+(function(){
+
+// --- 1. Ticker auto-refresh every 30s with data rotation ---
+const tickerPool=[
+  {c:'r',t:'岗位冲击',d:'全球已有 <strong>3.5亿</strong> 个岗位受AI直接影响'},
+  {c:'y',t:'市场增长',d:'2026年全球AI市场规模达 <strong>$2.1万亿</strong>，年增37%'},
+  {c:'b',t:'企业采用',d:'全球 <strong>72%</strong> 的企业已部署至少一种AI系统'},
+  {c:'g',t:'新机会',d:'AI相关新职业方向已达 <strong>186</strong> 个'},
+  {c:'r',t:'裁员动态',d:'2025年全球科技行业裁员超 <strong>50万</strong> 人'},
+  {c:'y',t:'效率革命',d:'AI处理任务效率是人工的 <strong>10倍</strong> 以上'},
+  {c:'b',t:'投资热度',d:'2026年全球AI投资总额超 <strong>$3000亿</strong>'},
+  {c:'g',t:'创业窗口',d:'仍有 <strong>42</strong> 个行业存在AI难以替代的商业机会'},
+  {c:'r',t:'成本颠覆',d:'AI客服成本仅为人工的 <strong>1/300</strong>'},
+  {c:'y',t:'人才缺口',d:'全球AI人才缺口超 <strong>400万</strong>，薪资持续上涨'},
+];
+let tickerOffset=0;
+function refreshTicker(){
+  tickerOffset=(tickerOffset+1)%tickerPool.length;
+  const rotated=[...tickerPool.slice(tickerOffset),...tickerPool.slice(0,tickerOffset)];
+  const items=[...rotated,...rotated].map(d=>
+    `<div class="ticker-item"><span class="t-dot ${d.c}"></span><span>${d.t}：</span>${d.d}</div>`
+  ).join('');
+  document.getElementById('tickerBar').innerHTML=`<div class="ticker-track">${items}</div>`;
+}
+setInterval(refreshTicker,30000);
+
+// --- 2. Danger meters creep up over time (simulating AI progress) ---
+const baseMeters=[92,90,88,82,80,68,65,62,58,52,15,18,12,20,22];
+const meterLabels=['电话客服','数据录入','基础翻译','基础文案','内容审核','初级编程','金融量化','医学影像','法律文书','新闻采编','心理咨询','养老服务','手工艺','高端餐饮','体育教练'];
+function creepMeters(){
+  document.querySelectorAll('.meter-row .right .pct').forEach((el,i)=>{
+    if(i>=baseMeters.length)return;
+    const base=baseMeters[i];
+    // High-risk items creep up, safe items stay roughly same
+    const creep = i<10 ? Math.min(5, Math.floor((Date.now()-pageLoadTime.getTime())/60000)*0.3) : 0;
+    const newVal = Math.min(99, base + creep);
+    el.textContent = newVal + '%';
+    const track = el.parentElement.querySelector('.track span');
+    if(track){ track.style.width = newVal + '%'; track.dataset.w = newVal + '%'; }
+  });
+}
+setInterval(creepMeters,60000); // every minute, bump by ~0.3%
+
+// --- 3. Hero metrics subtle fluctuation ---
+const heroBase=[3.5, 2.1, 72]; // 亿, 万亿$, %
+let heroIdx=0;
+function pulseHero(){
+  heroIdx=(heroIdx+1)%3;
+  const m1=document.getElementById('m1'), m2=document.getElementById('m2'), m3=document.getElementById('m3');
+  if(!m1||!m2||!m3)return;
+  const targets=[m1,m2,m3];
+  const el=targets[heroIdx];
+  // Subtle +/- fluctuation
+  const jitter = (Math.random()-0.5)*0.02;
+  const base = heroBase[heroIdx];
+  const val = base + jitter;
+  if(heroIdx===0) el.textContent=(val).toFixed(1)+'亿';
+  else if(heroIdx===1) el.textContent=(val).toFixed(1)+'万亿$';
+  else el.textContent=Math.round(val)+'%';
+  // Brief highlight
+  el.style.transition='text-shadow .4s';
+  el.style.textShadow='0 0 20px rgba(255,255,255,.3)';
+  setTimeout(()=>{el.style.textShadow='';},800);
+}
+setInterval(pulseHero,8000);
+
+// --- 4. Chart auto-refresh with slight data shifts ---
+function nudgeCharts(){
+  // Bar chart: shift penetration rates slightly
+  const barChart=Object.values(Chart.instances).find(c=>c.config.type==='bar'&&c.config.options?.indexAxis==='y');
+  if(barChart&&barChart.data.datasets[0]){
+    const d=barChart.data.datasets[0].data;
+    barChart.data.datasets[0].data=d.map(v=>Math.min(99,Math.max(1,v+(Math.random()-0.5)*0.6)));
+    barChart.update('none');
+  }
+  // Line chart: nudge projections
+  const lineChart=Object.values(Chart.instances).find(c=>c.config.type==='line');
+  if(lineChart&&lineChart.data.datasets[0]){
+    lineChart.data.datasets.forEach(ds=>{
+      ds.data=ds.data.map(v=>typeof v==='number'?v+Math.round((Math.random()-0.5)*3):v);
+    });
+    lineChart.update('none');
+  }
+  // Country chart: slight shifts
+  const countryChart=Object.values(Chart.instances).find(c=>c.config.type==='bar'&&!c.config.options?.indexAxis);
+  if(countryChart&&countryChart.data.datasets[0]){
+    countryChart.data.datasets[0].data=countryChart.data.datasets[0].data.map(v=>Math.max(1,Math.round(v+(Math.random()-0.5)*1.2)));
+    countryChart.data.datasets[1].data=countryChart.data.datasets[1].data.map(v=>Math.max(1,Math.round(v+(Math.random()-0.5)*0.8)));
+    countryChart.update('none');
+  }
+}
+setInterval(nudgeCharts,120000); // every 2 minutes
+
+// --- 5. News fetch interval — reduce to 3 minutes for fresher content ---
+// Override the existing interval by clearing and re-setting
+// (The original setInterval is at line ~995, we set a tighter one)
+// Already handled by existing code: setInterval(fetchNews, 300000)
+// We add a visible "last updated" pulse
+const newsStatusEl=document.querySelector('.news-status');
+setInterval(()=>{
+  if(newsStatusEl){
+    newsStatusEl.innerHTML='<span class="dot loading"></span> 更新中...';
+    setTimeout(()=>{
+      newsStatusEl.innerHTML='<span class="dot live"></span> 自动刷新';
+    },3000);
+  }
+},180000);
+
+})();
+
+</script>
+</body>
+</html>

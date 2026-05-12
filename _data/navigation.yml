@@ -20,8 +20,8 @@ main:
   - title: "项目集"
     url: /portfolio/
         
-  # - title: "Blog Posts"
-  #   url: /year-archive/
+  - title: "小玩具"
+    url: /year-archive/
     
   # - title: "CV"
   #   url: /cv/
