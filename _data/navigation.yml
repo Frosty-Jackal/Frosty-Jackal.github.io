@@ -11,11 +11,11 @@ main:
   - title: "出版物"
     url: /publications/
 
-  # - title: "Talks"
-  #   url: /talks/    
+  - title: "演讲与汇报"
+    url: /talks/    
 
-  # - title: "Teaching"
-  #   url: /teaching/    
+  - title: "教程"
+    url: /teaching/    
     
   - title: "项目集"
     url: /portfolio/

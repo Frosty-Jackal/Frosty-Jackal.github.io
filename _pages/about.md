@@ -14,8 +14,10 @@ redirect_from:
 ## 🏆 教育经历及主要获奖情况
 
 ### 四川大学 计算机学院 本科 (2023.09 - )
-- 第十五、十六届蓝桥杯C/C++程序设计大赛A组全国总决赛三等奖
 - 本科生国家奖学金
+- 以第一作者发表CCF-B类国际人工智能会议论文并作口头报告 (Oral)
+- 省级大学生创新训练计划项目负责人
+- 第十五、十六届蓝桥杯C/C++程序设计大赛A组全国总决赛三等奖
 - 2025年团体程序设计天梯赛全国总决赛团队二等奖
 - [四川省人工智能学院](https://baike.baidu.com/item/%E5%9B%9B%E5%B7%9D%E7%9C%81%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%AD%A6%E9%99%A2/64277040)首届学员
 - Alibaba Cloud ACA Large Language Model Engineer Certification
