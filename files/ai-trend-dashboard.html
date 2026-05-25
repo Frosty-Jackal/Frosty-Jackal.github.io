@@ -870,11 +870,14 @@ document.getElementById('loadTime').textContent=
 // === Live Job Impact Counter ===
 // ~3.5亿岗位受影响 / 365天 / 24h / 3600s ≈ 111 jobs/sec
 const JOBS_PER_SEC=111;
-const TASKS_PER_SEC=28400; // ~10.2亿/小时
+// AI 每小时处理任务量（全球估算）：约 10.2 亿次/小时，作为速率定值显示
+const TASKS_PER_HOUR_YI=10.2; // 单位：亿次/小时
 function updateLiveCounter(){
   const elapsed=(Date.now()-pageLoadTime.getTime())/1000;
   const jobs=Math.floor(elapsed*JOBS_PER_SEC);
-  const tasks=(elapsed*TASKS_PER_SEC/1e8).toFixed(1);
+  // 在基准值上做 ±0.3 亿的小幅波动，模拟实时感
+  const fluctuation=Math.sin(elapsed*0.37)*0.15+Math.cos(elapsed*0.71)*0.15;
+  const tasks=(TASKS_PER_HOUR_YI+fluctuation).toFixed(1);
   document.getElementById('liveJobs').textContent=jobs.toLocaleString();
   document.getElementById('liveTasks').textContent=tasks+' 亿';
 }
