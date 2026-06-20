@@ -1,13 +1,15 @@
 ---
-title: "Understanding Diffusion Models: From DDPM to Score Matching and Flow Matching"
+title: "Understanding Diffusion Models: From DDPM to Score"
 collection: teaching
 type: "Undergraduate course"
 permalink: /teaching/diffusion-models
 venue: "Sichuan University, College of Computer Science (Neural Network Design and Practice)"
-date: 2026-05-28
+date: 2026-06-11
 location: "Chengdu, China"
+
 ---
 
-This tutorial focuses on score-based models and flow matching—two important extensions of diffusion models.
+This tutorial walks through the conceptual bridge from DDPM to score-based generative models — from maximum likelihood and energy-based models, through score matching and Langevin dynamics, to the multi-scale SDE formulation that unifies score-based models and diffusion models.
 
-[Slides](/files/Understanding Diffusion Models From DDPM to Score Matching and Flow Matching.pdf)
+
+[Slides](/files/Score.pdf)
