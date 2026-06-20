@@ -1,12 +1,12 @@
 ---
-title: "基于进化算法的条件扩散模型高效架构优化方法研究"
+title: "Efficient Architecture Optimization for Conditional Diffusion Models via Evolutionary Algorithms"
 collection: talks
 type: "Talk"
-permalink: /talks/智绘未来-基于进化算法的条件扩散模型高效架构优化方法研究
-venue: "四川大学 计算机学院"
+permalink: /talks/evolutionary-diffusion-model-optimization
+venue: "College of Computer Science, Sichuan University"
 date: 2026-05-14
-location: "四川成都"
+location: "Chengdu, Sichuan"
 ---
-本项目为省级“全国大学生创新训练计划”项目，立足生成式人工智能与设计学交叉领域，从实际应用场景出发，系统梳理了现有条件扩散模型在控制精度与生成质量方面的深层瓶颈，并在此基础上展开系统性探索，完成了从理论建模、算法设计、实验验证到工程落地、用户投放的全链条工作。项目累计产出包括高水平会议论文、国家发明专利、软件著作权及赋能设计的多智能体AIGC系统在内的多类成果，形成了“问题驱动—方法创新—成果转化—应用验证”的完整闭环。目前，该系统已面向真实用户开放使用，积累了真实的用户反馈与实践经验，为高效可控的智能设计能力建设提供了技术支撑与实践范本。
+This project is a provincial-level "National Undergraduate Innovation Training Program" project, positioned at the intersection of generative AI and design science. Starting from real-world application scenarios, it systematically examines the deep bottlenecks of existing conditional diffusion models in terms of control precision and generation quality, and conducts a systematic exploration spanning the entire pipeline from theoretical modeling, algorithm design, and experimental validation to engineering implementation and user deployment. The cumulative outputs include high-level conference papers, national invention patents, software copyrights, and a multi-agent AIGC system for design — forming a complete closed loop of "problem-driven → methodological innovation → outcome transformation → applied verification." The system is currently open to real users, having accumulated genuine user feedback and practical experience, providing technical support and a practical paradigm for building efficient and controllable intelligent design capabilities.
 
-若需要Slides请私聊我获取
+DM me if you need the slides.
