@@ -18,7 +18,7 @@ My research interests in AI include: diffusion models and reference-based face r
 - Published a CCF-B international AI conference paper as first author with oral presentation
 - Principal Investigator of a Provincial-Level National Undergraduate Innovation Training Program
 - Third Prize, National Finals (Group A), 15th and 16th Lanqiao Cup C/C++ Programming Competition
-- Team Second Prize, National Finals, 2025 Group Programming Ladder Tournament
+- Team Second Prize, National Finals, 2025 Group Programming Ladder Tournament(2024 and 2025)
 - First cohort member of the [Sichuan Academy of Artificial Intelligence](https://baike.baidu.com/item/%E5%9B%9B%E5%B7%9D%E7%9C%81%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%AD%A6%E9%99%A2/64277040)
 - Alibaba Cloud ACA Large Language Model Engineer Certification(Valid Until Sep 09, 2027)
 
@@ -27,5 +27,5 @@ My research interests in AI include: diffusion models and reference-based face r
 - Second Prize, CCF CSP Non-Professional Software Competency Certification (Advanced Level)
 - Operated a [CSDN Blog](https://blog.csdn.net/Frosty_Jackal) sharing knowledge about competitive programming
 
-## 🎯 Community Contribution**: 
-Operate a WeChat public account [一个人工智能专业本科生](../images/ofa.png), sharing content related to artificial intelligence and computer science.
+## 🎯 Community Contribution 
+Operate a WeChat public account named ["一个人工智能专业本科生"](../images/ofa.png), sharing content related to artificial intelligence and computer science.
