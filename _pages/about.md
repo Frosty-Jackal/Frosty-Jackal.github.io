@@ -28,4 +28,6 @@ My research interests in AI include: diffusion models and reference-based face r
 - Operated a [CSDN Blog](https://blog.csdn.net/Frosty_Jackal) sharing knowledge about competitive programming
 
 ## 🎯 Community Contribution 
-Operate a WeChat public account named "[一个人工智能专业本科生](../images/ofa.png)", sharing content related to artificial intelligence and computer science.
+Operate a WeChat public account named "**[一个人工智能专业本科生](../images/ofa.png)**", sharing content related to artificial intelligence and computer science.
+
+Reviewed **12** papers (for **AAAI, NeurIPS, IEEE TETCI, etc.**) as part of my academic service.
