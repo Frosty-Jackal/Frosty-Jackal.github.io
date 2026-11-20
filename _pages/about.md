@@ -1,15 +1,13 @@
 ---
 permalink: /
-title: "Rui Hou's Personal Website"
+title: "Rui Hou's Bio"
 author_profile: true
 redirect_from: 
   - /about/
   - /about.html
 ---
 
-I am a senior majoring in [Artificial Intelligence](https://www.csail.mit.edu/) at [Sichuan University](https://scu.edu.cn/).
-
-My research interests in AI include: generative models. I continuously follow cutting-edge AI technologies and look forward to exchanging ideas and growing together with like-minded peers.
+I am a senior majoring in [Artificial Intelligence](https://www.csail.mit.edu/) at [Sichuan University](https://scu.edu.cn/). My research interests in AI include: generative models. I look forward to exchanging ideas and growing together with like-minded peers.
 
 ## 🏆 Education and Major Awards
 
@@ -26,7 +24,7 @@ My research interests in AI include: generative models. I continuously follow cu
 - Second Prize, CCF CSP Non-Professional Software Competency Certification(Advanced Level)
 - Operated a [CSDN Blog](https://blog.csdn.net/Frosty_Jackal) sharing knowledge about competitive programming
 
-## 🎯 Community Contribution 
-Operate a WeChat public account named "**[一个人工智能专业研究生](../images/ofa.png)**", sharing content related to artificial intelligence and computer science.
+## 🎯 Community Contribution
 
-Reviewed **13** papers(for **NeurIPS, AAAI, etc.**) as part of my academic service.
+- Operate a WeChat public account named "**[一个人工智能专业研究生](../images/ofa.png)**", sharing content related to artificial intelligence and computer science.
+- Reviewed **14** papers(for **NeurIPS, AAAI, etc.**) as part of my academic service.
