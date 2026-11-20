@@ -9,16 +9,17 @@ redirect_from:
 
 I am a senior majoring in [Artificial Intelligence](https://www.csail.mit.edu/) at [Sichuan University](https://scu.edu.cn/).
 
-My research interests in AI include: generative models and AI applications. I continuously follow cutting-edge AI technologies and look forward to exchanging ideas and growing together with like-minded peers.
+My research interests in AI include: generative models. I continuously follow cutting-edge AI technologies and look forward to exchanging ideas and growing together with like-minded peers.
 
 ## 🏆 Education and Major Awards
 
 ### B.E. in Computer Science, Sichuan University (Sep 2023 - Present)
+- Ranked 1st in major, exempt from the postgraduate entrance examination
 - National Scholarship for Undergraduates
 - Principal Investigator of a Provincial-Level National Undergraduate Innovation Training Program
-- Third Prize, National Finals(Group A), 15th and 16th Lanqiao Cup C/C++ Programming Competition(2024 and 2025)
-- First cohort member of the [Sichuan Academy of Artificial Intelligence](https://baike.baidu.com/item/%E5%9B%9B%E5%B7%9D%E7%9C%81%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%AD%A6%E9%99%A2/64277040)
-- Alibaba Cloud ACA Large Language Model Engineer Certification (Valid Until Sep 09, 2027)
+- Third Prize, National Finals(Group A), 15th and 16th Lanqiao Cup C/C++ Programming Competition
+- Member of the [Sichuan Academy of Artificial Intelligence](https://baike.baidu.com/item/%E5%9B%9B%E5%B7%9D%E7%9C%81%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%AD%A6%E9%99%A2/64277040)
+- Alibaba Cloud ACA Large Language Model Engineer Certification
 
 ### Shude High School, Chengdu (Sep 2020 - Jun 2023)
 - Third Prize, 2021 National Olympiad in Informatics in Provinces(NOIP)
