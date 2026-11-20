@@ -1,5 +1,6 @@
 {% include base_path %}
 {% assign videolabel = post.bibtexlabel | default: "Download Video" %}
+{% assign slideslabel = post.slideslabel | default: "Download Slides" %}
 
 {% if post.header.teaser %}
   {% capture teaser %}{{ post.header.teaser }}{% endcapture %}
@@ -54,17 +55,17 @@
     {% endif %}
     
     {% if post.citation and post.paperurl and post.slidesurl and post.bibtexurl %}
-      <p>Recommended citation: {{ post.citation }}<br /><a href="{{ post.paperurl }}">Download Paper</a> | <a href="{{ post.slidesurl }}">Download Slides</a> | <a href="{{ post.bibtexurl }}">{{ videolabel }}</a></p>
+      <p>Recommended citation: {{ post.citation }}<br /><a href="{{ post.paperurl }}">Download Paper</a> | <a href="{{ post.slidesurl }}">{{ slideslabel }}</a> | <a href="{{ post.bibtexurl }}">{{ videolabel }}</a></p>
     {% elsif post.citation and post.paperurl and post.slidesurl %}
-      <p>Recommended citation: {{ post.citation }}<br /><a href="{{ post.paperurl }}">Download Paper</a> | <a href="{{ post.slidesurl }}">Download Slides</a></p>
+      <p>Recommended citation: {{ post.citation }}<br /><a href="{{ post.paperurl }}">Download Paper</a> | <a href="{{ post.slidesurl }}">{{ slideslabel }}</a></p>
     {% elsif post.citation and post.paperurl and post.bibtexurl %}
       <p>Recommended citation: {{ post.citation }}<br /><a href="{{ post.paperurl }}">Download Paper</a> | <a href="{{ post.bibtexurl }}">{{ videolabel }}</a></p>
     {% elsif post.citation and post.paperurl %}
       <p>Recommended citation: {{ post.citation }}<br /><a href="{{ post.paperurl }}">Download Paper</a></p>
     {% elsif post.citation and post.slidesurl and post.bibtexurl %}
-      <p>Recommended citation: {{ post.citation }}<br /><a href="{{ post.slidesurl }}">Download Slides</a> | <a href="{{ post.bibtexurl}}">{{ videolabel }}</a></p>
+      <p>Recommended citation: {{ post.citation }}<br /><a href="{{ post.slidesurl }}">{{ slideslabel }}</a> | <a href="{{ post.bibtexurl}}">{{ videolabel }}</a></p>
     {% elsif post.citation and post.slidesurl %}
-      <p>Recommended citation: {{ post.citation }}<br /><a href="{{ post.slidesurl }}">Download Slides</a></p>
+      <p>Recommended citation: {{ post.citation }}<br /><a href="{{ post.slidesurl }}">{{ slideslabel }}</a></p>
     {% elsif post.citation and post.bibtexurl %}
       <p>Recommended citation: {{ post.citation }}<br /><a href="{{ post.bibtexurl }}">{{ videolabel }}</a></p>
     {% elsif post.citation %}
@@ -74,9 +75,9 @@
     {% elsif post.paperurl %}
       <p><a href=" {{ post.paperurl }} ">Download Paper</a></p>
     {% elsif post.slidesurl and post.bibtexurl %}
-      <p><a href="{{ post.slidesurl }}">Download Slides</a> | <a href="{{ post.bibtexurl }}">{{ videolabel }}</a></p>
+      <p><a href="{{ post.slidesurl }}">{{ slideslabel }}</a> | <a href="{{ post.bibtexurl }}">{{ videolabel }}</a></p>
     {% elsif post.slidesurl %}
-      <p><a href="{{ post.slidesurl }}">Download Slides</a></p>
+      <p><a href="{{ post.slidesurl }}">{{ slideslabel }}</a></p>
     {% elsif post.bibtexurl %}
       <p><a href="{{ post.bibtexurl }}">{{ videolabel }}</a></p>
     {% endif %}
